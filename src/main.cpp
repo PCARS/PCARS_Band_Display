@@ -14,8 +14,9 @@
 */
 
 
-#include "setup.h"
-#include "Band_Display.h"
+#include "Setup.h"
+#include "CI-V.h"
+#include "Display.h"
 
 
 void setup()

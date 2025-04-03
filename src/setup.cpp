@@ -8,8 +8,8 @@ void setup_Serial()
 {
 
   Serial.begin( SERIAL_BAUD );  // Main Serial for debugging
-  Serial1.begin( CI_V_BAUD, SERIAL_8N1, 4, 5 ); // TX=GPIO4, RX=GPIO5 (Safe GPIOs)
-  Serial2.begin( CI_V_BAUD );  // ✅ Serial2 remains on GPIO16/17 (No conflicts with LED matrix)
+  Serial1.begin( CI_V_BAUD, SERIAL_8N1, RX_1, TX_1);     // RX, TX (Safe GPIOs)
+  Serial2.begin( CI_V_BAUD, SERIAL_8N1, RX_2, TX_2  );  //  RX, TX (Safe GPIOs)
 
 }
 
