@@ -34,6 +34,7 @@ extern const char* tx_rx_2;   // Store current tx/rx mode for radio # 2
 extern uint8_t station;  // Store the station number of that last received packet
 
 
+// Function prototypes
 long decodeFrequency( byte *freqBytes );
 const char* determineBand(long frequency);
 const char* decodeMode( byte *modeBytes );

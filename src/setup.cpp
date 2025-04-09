@@ -1,7 +1,7 @@
 #include "setup.h"
 
 
-MatrixPanel_I2S_DMA matrix;
+MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
 
 
 void setup_Serial()
@@ -17,8 +17,9 @@ void setup_Serial()
 void setup_LED_Display()
 {
   
-  HUB75_I2S_CFG mx_config( MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_CHAIN );
+  HUB75_I2S_CFG mx_config( MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_CHAIN );  // Configuration structure for matrix object instance initialization
 
+  // Configure pins
   mx_config.gpio.r1 = P_R1;
   mx_config.gpio.g1 = P_G1;
   mx_config.gpio.b1 = P_B1;
@@ -34,82 +35,82 @@ void setup_LED_Display()
   mx_config.gpio.lat = P_LAT;
   mx_config.gpio.oe = P_OE;
   mx_config.clkphase = false;
-  mx_config.driver = HUB75_I2S_CFG::FM6124;
+  mx_config.driver = HUB75_I2S_CFG::FM6124;  // Specific driver IC for LED matrix
   
   
   // Initialize the matrix
-  if (matrix.begin(mx_config) == false)
+  if (matrix.begin(mx_config) == false)  // Test for LED matrix initialization
   {
-    Serial.println("Matrix initialization failed!");
-    while (1);
+    Serial.println("Matrix initialization failed!");  // Print error mesage
+    while (true);  // Loop forever, do not proceed
   }
 
 
-  matrix.setBrightness(90);
-  matrix.setTextSize(1);
+  matrix.setBrightness(90);  // 0 - 255, 90 is a good mid-range level
+  matrix.setTextSize(1);  // Default text size, 7x5 pixels
 
   matrix.clearScreen();  // Clear the screen
 
 
 
-  matrix.setTextColor(YELLOW);  // Set text color (yellow)
+  matrix.setTextColor(YELLOW);  // Set text color for Station labels
   
-  matrix.setCursor( ( MATRIX_WIDTH - calculateTextWidth("Station") ) / 2, FIRST_ROW_Y);
-  matrix.print("Station");
+  matrix.setCursor( ( MATRIX_WIDTH - calculateTextWidth("Station") ) / 2, FIRST_ROW_Y);  // Center top row
+  matrix.print("Station");  // Display Station label
       
 
-  matrix.setCursor( LEFT_MARGIN, SECOND_ROW_Y);
-  matrix.print("1");
+  matrix.setCursor( LEFT_MARGIN, SECOND_ROW_Y);  // Left justified
+  matrix.print("1");  // Display station # 1 label
       
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("2"), SECOND_ROW_Y);
-  matrix.print("2");
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("2"), SECOND_ROW_Y);  // Right justified
+  matrix.print("2");  // Display station # 2 label
 
 
 
-  matrix.setTextColor(STATION_1_COLOR);  // Set text color (magenta)
+  matrix.setTextColor(STATION_1_COLOR);  // Set text color for Station 1
   
-  matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );
-  matrix.print( "20M");
+  matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );  // Left justified
+  matrix.print( "20M");  // Display band
 
-  matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );
-  matrix.print( "USB");
+  matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );  // Left justified
+  matrix.print( "USB");  // Display mode
 
-  matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );
-  matrix.print( F( "TA33" ) );
+  matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );  // Left justified
+  matrix.print( F( "TA33" ) );  // Display antenna in use
 
-  matrix.setCursor( LEFT_MARGIN, SIXTH_ROW_Y );
-  matrix.print( F( "800W" ) );
+  matrix.setCursor( LEFT_MARGIN, SIXTH_ROW_Y );  // Left justified
+  matrix.print( F( "800W" ) );  // Display amplifier power
 
   matrix.setTextColor(GREEN);  // Set text color
-  matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );
-  matrix.print( F( "RX" ) );
+  matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
+  matrix.print( F( "RX" ) );  // Display RX/TX status
 
 
 
-  matrix.setTextColor(STATION_2_COLOR);  // Set text color (cyan)
+  matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("160M") , THIRD_ROW_Y );
-  matrix.print( "160M");
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("160M") , THIRD_ROW_Y );  // Right justified
+  matrix.print( "160M");  // Display band
   
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("RTTY"), FOURTH_ROW_Y );
-  matrix.print( "RTTY");
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("RTTY"), FOURTH_ROW_Y );  // Right justified
+  matrix.print( "RTTY");  // Display mode
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );
-  matrix.print( "PRO" );
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
+  matrix.print( "PRO" );  // Display antenna in use
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("1000W"), SIXTH_ROW_Y );
-  matrix.print( "1000W" );
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("1000W"), SIXTH_ROW_Y );  // Right justified
+  matrix.print( "1000W" );  // Display amplifier power
 
   matrix.setTextColor(RED);  // Set text color
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );
-  matrix.print( F( "TX" ) );
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
+  matrix.print( F( "TX" ) );  // Display RX/TX status
 
 }
 
 // Function to calculate the pixel width of the text
-uint8_t calculateTextWidth(String text)
+uint8_t calculateTextWidth(const char* text)
 {
-  uint8_t length = text.length();  // Get the length of the text
+  uint8_t length = strlen(text);  // Get the length of the text
   
   return ( CHAR_WIDTH * length ) + length - 1;   // Calculate total width of the string in pixels   
 

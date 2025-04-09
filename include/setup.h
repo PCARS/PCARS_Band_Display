@@ -13,13 +13,13 @@
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>  // LED matrix library
 
 
-#define SERIAL_BAUD 115200
+#define SERIAL_BAUD 115200  // Baud rate for printing
 
 #define CI_V_BAUD 19200  // Change if needed to match radio's baud date
-#define RX_1 22
-#define TX_1 23
-#define RX_2 32
-#define TX_2 33
+#define RX_1 22  // Radio Station 1 UART RX pin
+#define TX_1 23  // Radio Station 1 UART TX pin
+#define RX_2 32  // Radio Station 2 UART RX pin
+#define TX_2 33  // Radio Station 2 UART TX pin
 
 
 // ESP32 DevKit Pin Definitions (Avoiding Serial1 and Serial2 conflicts)
@@ -42,7 +42,7 @@
 #define P_E   27 // Required for 64x64 LED Matrix
 #define P_B   14
 #define P_D   12
-#define P_LAT 13
+#define P_LAT 13  // A.K.A. Strobe
 // GND PIN
 
 
@@ -96,7 +96,7 @@ extern MatrixPanel_I2S_DMA matrix;  // Matrix instantiation
 // Function prototypes
 void setup_Serial();
 void setup_LED_Display();
-uint8_t calculateTextWidth(String text);
+uint8_t calculateTextWidth(const char* text);
 
 
 #endif

@@ -22,7 +22,7 @@
 void setup()
 {
 
-  setup_Serial();  // Setup serial ports for annunciation and CI-V radio communication
+  setup_Serial();  // Setup serial ports for printing and CI-V radio communication
     
   setup_LED_Display();  // Setup LED Matrix display and display default settings
 
