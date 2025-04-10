@@ -1,4 +1,5 @@
 #include "setup.h"
+#include "CI-V.h"
 
 
 MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
@@ -66,14 +67,15 @@ void setup_LED_Display()
   matrix.print("2");  // Display station # 2 label
 
 
+  query_radio(Serial1, 1);  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_1_COLOR);  // Set text color for Station 1
   
   matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );  // Left justified
-  matrix.print( "20M");  // Display band
+  matrix.print( band_1 );  // Display band
 
   matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );  // Left justified
-  matrix.print( "USB");  // Display mode
+  matrix.print( mode_1 );  // Display mode
 
   matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );  // Left justified
   matrix.print( F( "TA33" ) );  // Display antenna in use
@@ -86,14 +88,15 @@ void setup_LED_Display()
   matrix.print( F( "RX" ) );  // Display RX/TX status
 
 
+  query_radio(Serial2, 2);  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("160M") , THIRD_ROW_Y );  // Right justified
-  matrix.print( "160M");  // Display band
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(band_2) , THIRD_ROW_Y );  // Right justified
+  matrix.print( band_2 );  // Display band
   
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("RTTY"), FOURTH_ROW_Y );  // Right justified
-  matrix.print( "RTTY");  // Display mode
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
+  matrix.print( mode_2);  // Display mode
 
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
   matrix.print( "PRO" );  // Display antenna in use
@@ -108,10 +111,45 @@ void setup_LED_Display()
 }
 
 // Function to calculate the pixel width of the text
-uint8_t calculateTextWidth(const char* text)
+uint8_t calculateTextWidth(String text)
 {
-  uint8_t length = strlen(text);  // Get the length of the text
+  uint8_t length = text.length();  // Get the length of the text
   
-  return ( CHAR_WIDTH * length ) + length - 1;   // Calculate total width of the string in pixels   
+  return ( CHAR_WIDTH * length ) + length - 1;   // Calculate total width of the string in pixels
+
+}
+
+
+void query_radio(HardwareSerial &radio, uint8_t station_num)
+{
+
+  const byte query_freq[] = {0xFE, 0xFE, RADIO_ADDR, CTRLR_ADDR, QUERY_FREQ_CMD, END_OF_MSG};
+  const byte query_mode[] = {0xFE, 0xFE, RADIO_ADDR, CTRLR_ADDR, QUERY_MODE_CMD, END_OF_MSG};
+
+  station = station_num;  // Set radio station number
+
+  while( radio.available() )  // Flush UART RX buffer
+    radio.read();
+
+  radio.write( query_freq, sizeof(query_freq) );  // Send query command
+
+  delay(50);
+
+  for( uint8_t i = 0; i < 6; i++)
+    radio.read();
+
+  processCIV( radio );  // Process CI-V data packet
+
+  while( radio.available() )  // Flush UART RX buffer
+    radio.read();
+  
+  radio.write( query_mode, sizeof(query_mode) );  // Send query command
+
+  delay(50);
+
+  for( uint8_t i = 0; i < 6; i++)
+    radio.read();
+
+  processCIV( radio );  // Process CI-V data packet
 
 }

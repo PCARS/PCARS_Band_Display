@@ -1,12 +1,10 @@
 #include "CI-V.h"
 
 
-const char* band_1;    // Store current band in use for radio # 1
-const char* mode_1;    // Store current mode in use for radio # 1
-const char* band_2;    // Store current band in use for radio # 2
-const char* mode_2;    // Store current mode in use for radio # 2
-const char* tx_rx_1;   // Store current tx/rx mode for radio # 1
-const char* tx_rx_2;   // Store current tx/rx mode for radio # 2
+String band_1;    // Store current band in use for radio # 1
+String mode_1;    // Store current mode in use for radio # 1
+String band_2;    // Store current band in use for radio # 2
+String mode_2;    // Store current mode in use for radio # 2
 uint8_t station;  // Store the station number of that last received packet
 
 
@@ -18,8 +16,8 @@ void processCIV( HardwareSerial &radio)
   uint8_t index;  // Used to point to data inside the buffer array
 
 
-  ets_delay_us ( 5729 );  // Allow time for UART RX buffer to fill. @19200 baud, one bit = 1/19200 = 52.08 us. 8N1 = 10 bits/byte. So 52.08 x 10 = 521 us/byte
-               // So far a CI-V packet of 11 bytes (BUFFER_SIZE), 11 x 521 us = 5729 us
+  delayMicroseconds ( 5729 );  // Allow time for UART RX buffer to fill. @19200 baud, one bit = 1/19200 = 52.08 us. 8N1 = 10 bits/byte. So 52.08 x 10 = 521 us/byte
+               // So for a CI-V packet of 11 bytes (BUFFER_SIZE), 11 x 521 us = 5729 us
 
   for ( index = 0; index < BUFFER_SIZE; index++ )  // Loop through data in the UART RX buffer
   {
@@ -49,39 +47,23 @@ void processCIV( HardwareSerial &radio)
     Serial.println();  // Print a blank line
   
 
-    switch ( buffer[CMD_IDX] )
-    {
-
-      case SEND_FREQ_CMD:     // Check if it's a frequency update (0xFE 0xFE 0x94 0x00 0x00 .... 0xFE)
+      if(buffer[CMD_IDX] == SEND_FREQ_CMD ||  buffer[CMD_IDX] == QUERY_FREQ_CMD)    // Check if it's a frequency update (0xFE 0xFE 0x94 0x00 0x00 .... 0xFE)
       {
         long frequency = decodeFrequency( buffer + DATA_AREA_IDX );  // Decode frequency data and store
         Serial.print( F( "New Frequency: " ) );  // Print frequency label
         Serial.print( frequency );  // Print frequency
         Serial.println( F( " Hz" ) );  // Print frequency units
-        determineBand(frequency);  // Determine operating band based on frequency
-
-        break;
+        String band = determineBand(frequency);  // Determine operating band based on frequency
+        Serial.print( F( "New Band: " ) );  // Print frequency label
+        Serial.println( band );  // Print frequency
       }
 
-      case SEND_MODE_CMD:  // Check if it's a mode update (0xFE 0xFE 0x94 0x00 0x01 ...)
+      if(buffer[CMD_IDX] == SEND_MODE_CMD ||  buffer[CMD_IDX] == QUERY_MODE_CMD)  // Check if it's a mode update (0xFE 0xFE 0x94 0x00 0x01 ...)
       {
-        const char* mode = decodeMode( buffer + DATA_AREA_IDX);  // Decode mode data and store
+        String mode = decodeMode( buffer + DATA_AREA_IDX);  // Decode mode data and store
         Serial.print( F( "New Mode: " ) );  // Print mode label
         Serial.println( mode );  // Print mode
-
-        break;
       }
-
-      case SEND_TX_CMD:  // Check if it's TX/RX status update (0xFE 0xFE 0x94 0x00 0x1C ...)
-      {
-        const char* tx_rx = decodeTX( buffer + DATA_AREA_IDX + 1);  // Decode TX/RX status data and store
-        Serial.print( F( "TX/RX: " ) );  // Print TX/RX status label
-        Serial.println( tx_rx );  // Print TX/RX status
-
-        break;
-      }
-
-    }
 
   }
 
@@ -118,10 +100,10 @@ long decodeFrequency( byte *freqBytes )
 }
 
 
-const char* determineBand(long frequency)
+String determineBand(long frequency)
 {
 
-  const char* band;  // Used to store band based on frequency
+  String band;  // Used to store band based on frequency
 
   // Assign band based on frequency. See Hambands4_Color_17x11.pdf in lib/Reference folder 
   if (frequency >= 1800000 && frequency <= 2000000) band = "160M";
@@ -150,10 +132,10 @@ const char* determineBand(long frequency)
 }
 
 
-const char* decodeMode( byte *modeBytes )
+String decodeMode( byte *modeBytes )
 {
 
-  const char* mode;  // Used to store mode based on received BCD code
+  String mode;  // Used to store mode based on received BCD code
 
   switch ( modeBytes[MODE_IDX] )  // See ICOM-7300 manual section 19-9
   {
@@ -202,28 +184,5 @@ const char* decodeMode( byte *modeBytes )
     mode_2 = mode;
 
   return mode;  // Return current mode
-
-}
-
-
-const char* decodeTX( byte *txBytes )
-{
-
- const char* tx_rx;  // Used to store TX/RX status based on received BCD code
-  
- if ( txBytes[MODE_IDX] == 0 )  // See ICOM-7300 manual section 19-7
-  tx_rx = "RX";
-
- if ( txBytes[MODE_IDX] == 1 )
-  tx_rx = "TX";
-  
-// Assign updated TX/RX status based on which radio station transmitted the update  
-if ( station == 1 )
-  tx_rx_1 = tx_rx;
-  
-else if ( station == 2 )
-  tx_rx_2 = tx_rx;
-
-return tx_rx;  // Return current TX/RX status
 
 }

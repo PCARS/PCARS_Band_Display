@@ -14,7 +14,9 @@
 
 #define SEND_FREQ_CMD 0x00  // See ICOM-7300 manual, section 19-2
 #define SEND_MODE_CMD 0x01  // See ICOM-7300 manual, section 19-2
-#define SEND_TX_CMD 0x1C    // See ICOM-7300 manual, section 19-2 
+#define QUERY_FREQ_CMD 0x03  // See ICOM-7300 manual, section 19-2
+#define QUERY_MODE_CMD 0x04  // See ICOM-7300 manual, section 19-2
+
 #define CMD_IDX 4           // See ICOM-7300 manual, section 19-2
 
 #define DATA_AREA_IDX 5  // See ICOM-7300 manual, section 19-2
@@ -25,20 +27,17 @@
 #define END_OF_MSG 0xFD  // See ICOM-7300 manual, section 19-2
 
 
-extern const char* band_1;    // Store current band in use for radio # 1
-extern const char* mode_1;    // Store current mode in use for radio # 1
-extern const char* band_2;    // Store current band in use for radio # 2
-extern const char* mode_2;    // Store current mode in use for radio # 2
-extern const char* tx_rx_1;   // Store current tx/rx mode for radio # 1
-extern const char* tx_rx_2;   // Store current tx/rx mode for radio # 2
+extern String band_1;    // Store current band in use for radio # 1
+extern String mode_1;    // Store current mode in use for radio # 1
+extern String band_2;    // Store current band in use for radio # 2
+extern String mode_2;    // Store current mode in use for radio # 2
 extern uint8_t station;  // Store the station number of that last received packet
 
 
 // Function prototypes
 long decodeFrequency( byte *freqBytes );
-const char* determineBand(long frequency);
-const char* decodeMode( byte *modeBytes );
-const char* decodeTX( byte *txBytes );
+String determineBand(long frequency);
+String decodeMode( byte *modeBytes );
 void processCIV( HardwareSerial &radio);
 
 #endif
