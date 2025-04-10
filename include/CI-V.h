@@ -6,6 +6,8 @@
 #define BUFFER_SIZE 11  // Buffer used to store CI-V packets, Max size for frequency command FE FE 94 00 01 XX XX XX XX XX FE
 #define MIN_MSG_SIZE 6  // CI-V messages are at least 6 bytes long, eg. FE,FE,E0,94,XX,FD
 
+#define START_OF_MSG 0xFE  // Start flag for CI-V message start, See ICOM-7300 manual, section 19-2
+
 #define RADIO_ADDR 0x94  // Change to match Radio's CI-V address
 #define RADIO_ADDR_IDX 3  // See ICOM-7300 manual, section 19-2
 
@@ -36,7 +38,7 @@ extern uint8_t station;  // Store the station number of that last received packe
 
 // Function prototypes
 long decodeFrequency( byte *freqBytes );
-String determineBand(long frequency);
+String determineBand( long frequency );
 String decodeMode( byte *modeBytes );
 void processCIV( HardwareSerial &radio);
 

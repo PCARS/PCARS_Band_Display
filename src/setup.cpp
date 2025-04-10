@@ -40,34 +40,32 @@ void setup_LED_Display()
   
   
   // Initialize the matrix
-  if (matrix.begin(mx_config) == false)  // Test for LED matrix initialization
+  if ( matrix.begin( mx_config ) == false )  // Test for LED matrix initialization
   {
-    Serial.println("Matrix initialization failed!");  // Print error mesage
-    while (true);  // Loop forever, do not proceed
+    Serial.println( F( "Matrix initialization failed!" ) );  // Print error message
+    while ( true );  // Loop forever, do not proceed
   }
 
 
-  matrix.setBrightness(90);  // 0 - 255, 90 is a good mid-range level
-  matrix.setTextSize(1);  // Default text size, 7x5 pixels
+  matrix.setBrightness( BRIGHTNESS );  // 0 - 255, 90 is a good mid-range level
 
   matrix.clearScreen();  // Clear the screen
 
 
-
-  matrix.setTextColor(YELLOW);  // Set text color for Station labels
+  matrix.setTextColor( STATION_LABEL_COLOR );  // Set text color for Station labels
   
-  matrix.setCursor( ( MATRIX_WIDTH - calculateTextWidth("Station") ) / 2, FIRST_ROW_Y);  // Center top row
-  matrix.print("Station");  // Display Station label
+  matrix.setCursor( ( MATRIX_WIDTH - calculateTextWidth( F( "Station" ) ) ) / 2, FIRST_ROW_Y);  // Center top row
+  matrix.print(F ( "Station" ) );  // Display Station label
       
 
   matrix.setCursor( LEFT_MARGIN, SECOND_ROW_Y);  // Left justified
-  matrix.print("1");  // Display station # 1 label
+  matrix.print( F( "#1" ) );  // Display station # 1 label
       
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("2"), SECOND_ROW_Y);  // Right justified
-  matrix.print("2");  // Display station # 2 label
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth( F( "#2" ) ), SECOND_ROW_Y);  // Right justified
+  matrix.print( F( "#2" ) );  // Display station # 2 label
 
 
-  query_radio(Serial1, 1);  // Get current band and mode from radio
+  query_radio( Serial1, 1 );  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_1_COLOR);  // Set text color for Station 1
   
@@ -83,12 +81,12 @@ void setup_LED_Display()
   matrix.setCursor( LEFT_MARGIN, SIXTH_ROW_Y );  // Left justified
   matrix.print( F( "800W" ) );  // Display amplifier power
 
-  matrix.setTextColor(GREEN);  // Set text color
+  matrix.setTextColor( GREEN );  // Set text color
   matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
   matrix.print( F( "RX" ) );  // Display RX/TX status
 
 
-  query_radio(Serial2, 2);  // Get current band and mode from radio
+  query_radio( Serial2, 2 );  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
@@ -96,22 +94,22 @@ void setup_LED_Display()
   matrix.print( band_2 );  // Display band
   
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
-  matrix.print( mode_2);  // Display mode
+  matrix.print( mode_2 );  // Display mode
 
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
-  matrix.print( "PRO" );  // Display antenna in use
+  matrix.print( F( "PRO" ) );  // Display antenna in use
 
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("1000W"), SIXTH_ROW_Y );  // Right justified
-  matrix.print( "1000W" );  // Display amplifier power
+  matrix.print( F( "1000W" ) );  // Display amplifier power
 
-  matrix.setTextColor(RED);  // Set text color
+  matrix.setTextColor( RED );  // Set text color
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
   matrix.print( F( "TX" ) );  // Display RX/TX status
 
 }
 
-// Function to calculate the pixel width of the text
-uint8_t calculateTextWidth(String text)
+// Function to calculate the pixel width of a text string
+uint8_t calculateTextWidth( String text )
 {
   uint8_t length = text.length();  // Get the length of the text
   
@@ -123,33 +121,30 @@ uint8_t calculateTextWidth(String text)
 void query_radio(HardwareSerial &radio, uint8_t station_num)
 {
 
-  const byte query_freq[] = {0xFE, 0xFE, RADIO_ADDR, CTRLR_ADDR, QUERY_FREQ_CMD, END_OF_MSG};
-  const byte query_mode[] = {0xFE, 0xFE, RADIO_ADDR, CTRLR_ADDR, QUERY_MODE_CMD, END_OF_MSG};
+  const byte query[2][6] = {
+
+    {START_OF_MSG, START_OF_MSG, RADIO_ADDR, CTRLR_ADDR, QUERY_FREQ_CMD, END_OF_MSG},  // Define frequency query command
+    {START_OF_MSG, START_OF_MSG, RADIO_ADDR, CTRLR_ADDR, QUERY_MODE_CMD, END_OF_MSG}   // Define mode query command
+
+  };
 
   station = station_num;  // Set radio station number
 
-  while( radio.available() )  // Flush UART RX buffer
-    radio.read();
+  for ( uint8_t i = 0; i < 2; i++ )  // Loop through the queries
+  {
 
-  radio.write( query_freq, sizeof(query_freq) );  // Send query command
+    while( radio.available() )  // Flush UART RX buffer
+      radio.read();
 
-  delay(50);
+    radio.write( query[i], 6 );  // Send query command
 
-  for( uint8_t i = 0; i < 6; i++)
-    radio.read();
+    delay(50);  // Sufficient delay for response from radio
 
-  processCIV( radio );  // Process CI-V data packet
+    for( uint8_t i = 0; i < 6; i++)  // Loop through and discard command echo response
+      radio.read();
 
-  while( radio.available() )  // Flush UART RX buffer
-    radio.read();
-  
-  radio.write( query_mode, sizeof(query_mode) );  // Send query command
+    processCIV( radio );  // Process CI-V data packet
 
-  delay(50);
-
-  for( uint8_t i = 0; i < 6; i++)
-    radio.read();
-
-  processCIV( radio );  // Process CI-V data packet
+  }
 
 }
