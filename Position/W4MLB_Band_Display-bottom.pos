@@ -1,0 +1,8 @@
+### Footprint positions - created on 2025-04-14T05:20:26-0400 ###
+### Printed by KiCad version 9.0.0
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val                Package                               PosX       PosY       Rot  Side
+J3        SSQ-108-01-T-D-LL  SAMTEC_SSQ-108-01-T-D-LL          134.2800   -89.6925   90.0000  bottom
+J9        Conn_01x10_Pin     PinSocket_1x10_P2.54mm_Vertical   125.4300   -66.5825  -90.0000  bottom
+## End
