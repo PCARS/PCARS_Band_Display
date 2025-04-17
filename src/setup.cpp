@@ -5,6 +5,16 @@
 MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
 
 
+void setup_Digital_Pins()
+{
+
+  pinMode(LED_BUILTIN, OUTPUT);  // Set LED as output
+
+  digitalWrite(LED_BUILTIN, LOW);  // Off by default
+
+}
+
+
 void setup_Serial()
 {
 
@@ -77,15 +87,15 @@ void setup_LED_Display()
   matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );  // Left justified
   matrix.print( mode_1 );  // Display mode
 
-  matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );  // Left justified
-  matrix.print( F( "TA33" ) );  // Display antenna in use
+  // matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );  // Left justified
+  // matrix.print( F( "TA33" ) );  // Display antenna in use
 
-  matrix.setCursor( LEFT_MARGIN, SIXTH_ROW_Y );  // Left justified
-  matrix.print( F( "800W" ) );  // Display amplifier power
+  // matrix.setCursor( LEFT_MARGIN, SIXTH_ROW_Y );  // Left justified
+  // matrix.print( F( "800W" ) );  // Display amplifier power
 
-  matrix.setTextColor(GREEN);  // Set text color
-  matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
-  matrix.print( F( "RX" ) );  // Display RX/TX status
+  // matrix.setTextColor(GREEN);  // Set text color
+  // matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
+  // matrix.print( F( "RX" ) );  // Display RX/TX status
 
 
   query_radio(Serial2, 2);  // Get current band and mode from radio
@@ -98,15 +108,15 @@ void setup_LED_Display()
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
   matrix.print( mode_2);  // Display mode
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
-  matrix.print( "PRO" );  // Display antenna in use
+  // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
+  // matrix.print( "PRO" );  // Display antenna in use
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("1000W"), SIXTH_ROW_Y );  // Right justified
-  matrix.print( "1000W" );  // Display amplifier power
+  // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("1000W"), SIXTH_ROW_Y );  // Right justified
+  // matrix.print( "1000W" );  // Display amplifier power
 
-  matrix.setTextColor(RED);  // Set text color
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
-  matrix.print( F( "TX" ) );  // Display RX/TX status
+  // matrix.setTextColor(RED);  // Set text color
+  // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
+  // matrix.print( F( "TX" ) );  // Display RX/TX status
 
 }
 
@@ -128,27 +138,42 @@ void query_radio(HardwareSerial &radio, uint8_t station_num)
 
   station = station_num;  // Set radio station number
 
+
   while( radio.available() )  // Flush UART RX buffer
     radio.read();
 
   radio.write( query_freq, sizeof(query_freq) );  // Send query command
 
   delay(50);
+  //while( radio.available() <= 6 );  // Wait for radio to start reply
 
-  for( uint8_t i = 0; i < 6; i++)
-    radio.read();
+  Serial.print( F( "Command Echo: " ) );  // Print label
+
+  for( uint8_t i = 0; i < 6; i++)  // Capture command echo
+  {
+    Serial.print(radio.read(), HEX);  // Read bytes and print
+    Serial.print( F(" ") );  // Add space between printed bytes
+  }
+
+  Serial.println();  // Go to the next line
 
   processCIV( radio );  // Process CI-V data packet
 
-  while( radio.available() )  // Flush UART RX buffer
-    radio.read();
-  
+
   radio.write( query_mode, sizeof(query_mode) );  // Send query command
 
   delay(50);
+  //while( radio.available() <= 6 );  // Wait for radio to start reply
 
+  Serial.print( F( "Command Echo: " ) );
+  
   for( uint8_t i = 0; i < 6; i++)
-    radio.read();
+  {
+    Serial.print(radio.read(), HEX);
+    Serial.print( F(" ") );
+  }
+
+  Serial.println();
 
   processCIV( radio );  // Process CI-V data packet
 

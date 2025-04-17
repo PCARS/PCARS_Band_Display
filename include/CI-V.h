@@ -27,6 +27,8 @@
 #define END_OF_MSG 0xFD  // See ICOM-7300 manual, section 19-2
 
 
+#define BAND_CONFLICT_HOLD_TIME 3000  // Time required before alerting band conflict
+
 extern String band_1;    // Store current band in use for radio # 1
 extern String mode_1;    // Store current mode in use for radio # 1
 extern String band_2;    // Store current band in use for radio # 2
@@ -39,5 +41,6 @@ long decodeFrequency( byte *freqBytes );
 String determineBand(long frequency);
 String decodeMode( byte *modeBytes );
 void processCIV( HardwareSerial &radio);
+bool band_Conflict_Check();
 
 #endif

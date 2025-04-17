@@ -4,6 +4,9 @@
 #include <Arduino.h>       // Required libarary for Arduino programming
 #include <Adafruit_GFX.h>  // LED matrix library dependancy
 
+
+#define LED_BUILTIN 2
+
 // Define the panel configuration to override defaults in library
 #define MATRIX_WIDTH 64   // Matrix panel width in pixels
 #define MATRIX_HEIGHT 64  // Matrix panel height in pixels
@@ -16,14 +19,15 @@
 #define SERIAL_BAUD 115200  // Baud rate for printing
 
 #define CI_V_BAUD 19200  // Change if needed to match radio's baud date
-#define RX_1 22  // Radio Station 1 UART RX pin
+#define RX_1 35  // Radio Station 1 UART RX pin
 #define TX_1 23  // Radio Station 1 UART TX pin
-#define RX_2 32  // Radio Station 2 UART RX pin
+#define RX_2 34  // Radio Station 2 UART RX pin
 #define TX_2 33  // Radio Station 2 UART TX pin
 
 
+
 // ESP32 DevKit Pin Definitions (Avoiding Serial1 and Serial2 conflicts)
-// See 64x64 LED Matrix Connector Pinout.PNG in lib/Reference Docs folder 
+// See 64x64 LED Matrix Connector Pinout.PNG in lib/Reference Docs folder
 
 // Right side of ribbon cable with connector facing towards you, red stripe up
 #define P_R1  21
@@ -98,6 +102,7 @@ void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
 void query_radio(HardwareSerial &radio, uint8_t station_num);
+void setup_Digital_Pins();
 
 
 #endif

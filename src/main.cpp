@@ -22,6 +22,8 @@
 void setup()
 {
 
+  setup_Digital_Pins();
+  
   setup_Serial();  // Setup serial ports for printing and CI-V radio communication
     
   setup_LED_Display();  // Setup LED Matrix display and display default settings
@@ -49,5 +51,7 @@ void loop()
   }
 
   update_Display();  // Update display if changes occurred
+
+  band_Conflict_Check();
 
 }

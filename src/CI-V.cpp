@@ -9,7 +9,7 @@ uint8_t station;  // Store the station number of that last received packet
 
 
 // Function to decode and extract frequency from CI-V message
-void processCIV( HardwareSerial &radio)
+void processCIV( HardwareSerial &radio )
 {
   byte buffer[BUFFER_SIZE];  // Used to store received CI-V data
 
@@ -83,18 +83,6 @@ long decodeFrequency( byte *freqBytes )
     frequency += ( freqBytes[i] >> 4 )   * pow( 10, 2 * i + 1 );  // Top half of byte for the 10's, see ICOM-7300 manual 19-9
 
   }
-
-  // freq += ((freqBytes[0] >> 4) & 0x0F) * 10;
-  // freq += (freqBytes[0] & 0x0F) * 1;
-  
-  // freq += ((freqBytes[1] >> 4) & 0x0F) * 1E3;
-  // freq += (freqBytes[1] & 0x0F) * 1E2;
-  
-  // freq += ((freqBytes[2] >> 4) & 0x0F) * 1E5;
-  // freq += (freqBytes[2] & 0x0F) * 1E4;
-  
-  // freq += ((freqBytes[3] >> 4) & 0x0F) * 1E7;
-  // freq += (freqBytes[3] & 0x0F) * 1E6;
 
   return frequency;
 }
@@ -185,4 +173,46 @@ String decodeMode( byte *modeBytes )
 
   return mode;  // Return current mode
 
+}
+
+
+bool band_Conflict_Check()
+{
+
+  static uint32_t conflict_detected_timer = 0;
+  static bool ledOn = false;
+
+  if( band_1 == band_2 )  // Check to see if bands are the same for both radios
+  {
+
+    if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
+      conflict_detected_timer = millis();  // Recored time when band conflict was first detected
+    
+    else if ( millis() - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME && ledOn == false )  // Check if conflict has persisted
+    {
+      digitalWrite( LED_BUILTIN, HIGH );  // Active band conflict alert
+
+      ledOn = true;
+
+      return true;
+    }
+
+  }
+
+  else
+  {
+    conflict_detected_timer = 0;  // Reset band conflict timer if no comflict exists
+
+    if( ledOn == true )
+    {
+      digitalWrite( LED_BUILTIN, LOW );  // Turn of band conflict alert
+      
+      ledOn = false;
+
+    }
+
+  }
+
+  return false;
+  
 }
