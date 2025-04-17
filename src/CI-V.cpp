@@ -17,7 +17,7 @@ void processCIV( HardwareSerial &radio )
 
 
   delayMicroseconds ( 5729 );  // Allow time for UART RX buffer to fill. @19200 baud, one bit = 1/19200 = 52.08 us. 8N1 = 10 bits/byte. So 52.08 x 10 = 521 us/byte
-               // So for a CI-V packet of 11 bytes (BUFFER_SIZE), 11 x 521 us = 5729 us
+                               // So for a CI-V packet of 11 bytes (BUFFER_SIZE), 11 x 521 us = 5729 us
 
   for ( index = 0; index < BUFFER_SIZE; index++ )  // Loop through data in the UART RX buffer
   {
@@ -34,9 +34,10 @@ void processCIV( HardwareSerial &radio )
   while( radio.available() )  // Clear UART RX buffer
     radio.read();
 
+
   if ( index >= MIN_MSG_SIZE && buffer[CTRLR_ADDR_IDX] == CTRLR_ADDR && buffer[index] == END_OF_MSG )  // Check for appropriately formatted data capture
   {
-    Serial.print( F( "Raw CI-V: " ) );  // Annunciate RAW CI-V data packet values
+    Serial.print( F( "Raw CI-V: " ) );  // Print RAW CI-V data packet values
 
     for ( uint8_t i = 0; i <= index; i++ )  // Loop through buffer
     {
@@ -47,22 +48,22 @@ void processCIV( HardwareSerial &radio )
     Serial.println();  // Print a blank line
   
 
-      if(buffer[CMD_IDX] == SEND_FREQ_CMD ||  buffer[CMD_IDX] == QUERY_FREQ_CMD)    // Check if it's a frequency update (0xFE 0xFE 0x94 0x00 0x00 .... 0xFE)
+      if( buffer[CMD_IDX] == SEND_FREQ_CMD ||  buffer[CMD_IDX] == QUERY_FREQ_CMD )    // Check if it's a frequency update (0xFE 0xFE 0x94 0x00 0x00 .... 0xFE)
       {
         long frequency = decodeFrequency( buffer + DATA_AREA_IDX );  // Decode frequency data and store
         Serial.print( F( "New Frequency: " ) );  // Print frequency label
         Serial.print( frequency );  // Print frequency
         Serial.println( F( " Hz" ) );  // Print frequency units
-        String band = determineBand(frequency);  // Determine operating band based on frequency
+      
         Serial.print( F( "New Band: " ) );  // Print frequency label
-        Serial.println( band );  // Print frequency
+        Serial.println( determineBand(frequency) );  // Determine operating band based on frequency and print band
+        Serial.println( F( " M" ) );  // Print band units
       }
 
-      if(buffer[CMD_IDX] == SEND_MODE_CMD ||  buffer[CMD_IDX] == QUERY_MODE_CMD)  // Check if it's a mode update (0xFE 0xFE 0x94 0x00 0x01 ...)
+      if ( buffer[CMD_IDX] == SEND_MODE_CMD ||  buffer[CMD_IDX] == QUERY_MODE_CMD )  // Check if it's a mode update (0xFE 0xFE 0x94 0x00 0x01 ...)
       {
-        String mode = decodeMode( buffer + DATA_AREA_IDX);  // Decode mode data and store
         Serial.print( F( "New Mode: " ) );  // Print mode label
-        Serial.println( mode );  // Print mode
+        Serial.println( decodeMode( buffer + DATA_AREA_IDX) );  // Decode mode data and print mode
       }
 
   }
@@ -95,17 +96,17 @@ String determineBand(long frequency)
 
   // Assign band based on frequency. See Hambands4_Color_17x11.pdf in lib/Reference folder 
   if (frequency >= 1800000 && frequency <= 2000000) band = "160M";
-  else if (frequency >= 3500000 && frequency <= 4000000) band = "80M";
-  else if (frequency >= 5255000 && frequency <= 5405000) band = "60M";
-  else if (frequency >= 7000000 && frequency <= 7300000) band = "40M";
-  else if (frequency >= 10100000 && frequency <= 10150000) band = "30M";
-  else if (frequency >= 14000000 && frequency <= 14350000) band = "20M";
-  else if (frequency >= 18068000 && frequency <= 18168000) band = "17M";
-  else if (frequency >= 21000000 && frequency <= 21450000) band = "15M";
-  else if (frequency >= 24890000 && frequency <= 24990000) band = "12M";
-  else if (frequency >= 28000000 && frequency <= 29700000) band = "10M";
-  else if (frequency >= 50000000 && frequency <= 54000000) band = "6M";
-  else if (frequency >= 70000000 && frequency <= 70500000) band = "4M";
+  else if ( frequency >= 3500000 && frequency <= 4000000 ) band = "80M";
+  else if ( frequency >= 5255000 && frequency <= 5405000 ) band = "60M";
+  else if ( frequency >= 7000000 && frequency <= 7300000 ) band = "40M";
+  else if ( frequency >= 10100000 && frequency <= 10150000 ) band = "30M";
+  else if ( frequency >= 14000000 && frequency <= 14350000 ) band = "20M";
+  else if ( frequency >= 18068000 && frequency <= 18168000 ) band = "17M";
+  else if ( frequency >= 21000000 && frequency <= 21450000 ) band = "15M";
+  else if ( frequency >= 24890000 && frequency <= 24990000 ) band = "12M";
+  else if ( frequency >= 28000000 && frequency <= 29700000 ) band = "10M";
+  else if ( frequency >= 50000000 && frequency <= 54000000 ) band = "6M";
+  else if ( frequency >= 70000000 && frequency <= 70500000 ) band = "4M";
   else band = "???";  // In case frequency is out of bounds
 
   // Assign updated band based on which radio station transmitted the update
@@ -165,10 +166,10 @@ String decodeMode( byte *modeBytes )
   }
 
   // Assign updated mode based on which radio station transmitted the update
-  if (station == 1)
+  if ( station == 1 )
     mode_1 = mode;
   
-  else if (station == 2)
+  else if ( station == 2 )
     mode_2 = mode;
 
   return mode;  // Return current mode

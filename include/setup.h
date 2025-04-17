@@ -73,6 +73,9 @@
 #define PINK        0xFC9C  // 64536
 
 
+#define BRIGHTNESS 90  // LED Matrix pixel brightness 0 - 255
+
+#define STATION_LABEL_COLOR YELLOW  // Determine color for station labels
 #define STATION_1_COLOR MAGENTA  // Determine color for station # 1
 #define STATION_2_COLOR CYAN     // Determine color for station # 2
 
