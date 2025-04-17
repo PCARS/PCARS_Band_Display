@@ -55,7 +55,7 @@ void processCIV( HardwareSerial &radio )
         Serial.print( frequency );  // Print frequency
         Serial.println( F( " Hz" ) );  // Print frequency units
       
-        Serial.print( F( "New Band: " ) );  // Print frequency label
+        Serial.print( F( "Band: " ) );  // Print frequency label
         Serial.println( determineBand(frequency) );  // Determine operating band based on frequency and print band
       }
 
@@ -180,19 +180,19 @@ bool band_Conflict_Check()
 {
 
   static uint32_t conflict_detected_timer = 0;
-  static bool ledOn = false;
+  static bool led_On = false;
 
   if( band_1 == band_2 )  // Check to see if bands are the same for both radios
   {
 
     if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
-      conflict_detected_timer = millis();  // Recored time when band conflict was first detected
+      conflict_detected_timer = millis();  // Recorded time when band conflict was first detected
     
-    else if ( millis() - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME && ledOn == false )  // Check if conflict has persisted
+    else if ( millis() - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME && led_On == false )  // Check if conflict has persisted
     {
       digitalWrite( LED_BUILTIN, HIGH );  // Active band conflict alert
 
-      ledOn = true;
+      led_On = true;
 
       return true;
     }
@@ -201,13 +201,13 @@ bool band_Conflict_Check()
 
   else
   {
-    conflict_detected_timer = 0;  // Reset band conflict timer if no comflict exists
+    conflict_detected_timer = 0;  // Reset band conflict timer if no conflict exists
 
-    if( ledOn == true )
+    if( led_On == true )
     {
       digitalWrite( LED_BUILTIN, LOW );  // Turn of band conflict alert
       
-      ledOn = false;
+      led_On = false;
 
     }
 

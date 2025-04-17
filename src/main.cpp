@@ -22,7 +22,7 @@
 void setup()
 {
 
-  setup_Digital_Pins();
+  setup_Digital_Pins();  // Setup digital pins for use
   
   setup_Serial();  // Setup serial ports for printing and CI-V radio communication
     
@@ -52,6 +52,6 @@ void loop()
 
   update_Display();  // Update display if changes occurred
 
-  band_Conflict_Check();
+  band_Conflict_Check();  // Check for band conflicts and alert if needed
 
 }

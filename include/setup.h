@@ -5,8 +5,6 @@
 #include <Adafruit_GFX.h>  // LED matrix library dependancy
 
 
-#define LED_BUILTIN 2
-
 // Define the panel configuration to override defaults in library
 #define MATRIX_WIDTH 64   // Matrix panel width in pixels
 #define MATRIX_HEIGHT 64  // Matrix panel height in pixels
@@ -104,7 +102,7 @@ extern MatrixPanel_I2S_DMA matrix;  // Matrix instantiation
 void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
-void query_radio(HardwareSerial &radio, uint8_t station_num);
+void query_Radio(HardwareSerial &radio, uint8_t station_num);
 void setup_Digital_Pins();
 
 

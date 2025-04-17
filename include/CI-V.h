@@ -29,7 +29,7 @@
 #define END_OF_MSG 0xFD  // See ICOM-7300 manual, section 19-2
 
 
-#define BAND_CONFLICT_HOLD_TIME 3000  // Time required before alerting band conflict
+#define BAND_CONFLICT_HOLD_TIME 3000  // Time required before alerting band conflict [ms]
 
 extern String band_1;    // Store current band in use for radio # 1
 extern String mode_1;    // Store current mode in use for radio # 1

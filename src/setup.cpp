@@ -75,7 +75,7 @@ void setup_LED_Display()
   matrix.print( F( "#2" ) );  // Display station # 2 label
 
 
-  query_radio( Serial1, 1 );  // Get current band and mode from radio
+  query_Radio( Serial1, 1 );  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_1_COLOR);  // Set text color for Station 1
   
@@ -96,7 +96,7 @@ void setup_LED_Display()
   // matrix.print( F( "RX" ) );  // Display RX/TX status
 
 
-  query_radio( Serial2, 2 );  // Get current band and mode from radio
+  query_Radio( Serial2, 2 );  // Get current band and mode from radio
 
   matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
@@ -128,7 +128,7 @@ uint8_t calculateTextWidth( String text )
 }
 
 
-void query_radio(HardwareSerial &radio, uint8_t station_num)
+void query_Radio(HardwareSerial &radio, uint8_t station_num)
 {
 
   const byte query[2][6] = {
