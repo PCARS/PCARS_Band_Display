@@ -57,7 +57,6 @@ void processCIV( HardwareSerial &radio )
       
         Serial.print( F( "New Band: " ) );  // Print frequency label
         Serial.println( determineBand(frequency) );  // Determine operating band based on frequency and print band
-        Serial.println( F( " M" ) );  // Print band units
       }
 
       if ( buffer[CMD_IDX] == SEND_MODE_CMD ||  buffer[CMD_IDX] == QUERY_MODE_CMD )  // Check if it's a mode update (0xFE 0xFE 0x94 0x00 0x01 ...)
