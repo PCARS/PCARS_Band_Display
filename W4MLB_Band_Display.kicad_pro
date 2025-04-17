@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.125,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.0
+          "min_clearance": 0.35
         }
       },
       "diff_pair_dimensions": [
@@ -60,20 +60,12 @@
       ],
       "drc_exclusions": [
         [
-          "footprint_symbol_mismatch|17250000|179000000|d45ef900-2353-4c76-8309-c6232e1c14de|00000000-0000-0000-0000-000000000000",
+          "lib_footprint_mismatch|34277500|163705000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "footprint_symbol_mismatch|37300000|164955000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|37027500|164955000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "solder_mask_bridge|183219694|99480300|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|7c34e3bb-dbba-46c1-8f09-6023cdf13071",
-          "Same connection"
+          "solder_mask_bridge|185593257|98709087|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|7c34e3bb-dbba-46c1-8f09-6023cdf13071",
+          "Same electrical connection to pad 4"
         ]
       ],
       "meta": {
