@@ -1,4 +1,4 @@
-24815846391942106
+24817597638210721
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -57462,6 +57462,13 @@ CONN15_901471115_MOL
 0
 15
 15
+Footprints
+CONN_SD-38720-002_02_MOL
+
+
+0
+2
+2
 Footprints
 DO41-10
 <B>DIODE</B><p>diameter 2.54 mm, horizontal, grid 10.16 mm

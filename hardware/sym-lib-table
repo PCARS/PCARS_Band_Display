@@ -9,4 +9,5 @@
   (lib (name "ESP32-DEVKITC-32D")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/ESP32-DEVKITC-32D.kicad_sym")(options "")(descr "")(disabled)(hidden))
   (lib (name "ESP32-DEVKIT-V1")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/ESP32-DEVKIT-V1.kicad_sym")(options "")(descr ""))
   (lib (name "SAMTEC-TST-108-01-X-D")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/SAMTEC-TST-108-01-X-D.kicad_sym")(options "")(descr ""))
+  (lib (name "387206302")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Symbols/387206302.kicad_sym")(options "")(descr ""))
 )

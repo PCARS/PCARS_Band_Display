@@ -60,11 +60,11 @@
       ],
       "drc_exclusions": [
         [
-          "duplicate_footprints|124490000|67130000|25c3b632-11f3-4442-8485-8791b29ac8ad|b13cb23b-f455-4766-910a-d2ef34f0cf5f",
+          "duplicate_footprints|124510000|115250000|b13cb23b-f455-4766-910a-d2ef34f0cf5f|25c3b632-11f3-4442-8485-8791b29ac8ad",
           ""
         ],
         [
-          "duplicate_footprints|186570000|67230000|32f770e3-d92e-4227-b1f8-f83435edffed|b13cb23b-f455-4766-910a-d2ef34f0cf5f",
+          "duplicate_footprints|186570000|67230000|32f770e3-d92e-4227-b1f8-f83435edffed|25c3b632-11f3-4442-8485-8791b29ac8ad",
           ""
         ],
         [
@@ -84,7 +84,7 @@
           ""
         ],
         [
-          "lib_footprint_mismatch|34277500|163705000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
+          "lib_footprint_mismatch|-29322500|195205000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
