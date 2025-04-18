@@ -18,7 +18,7 @@
     "selection_filter": {
       "dimensions": true,
       "footprints": true,
-      "graphics": true,
+      "graphics": false,
       "keepouts": true,
       "lockedItems": true,
       "otherItems": true,
@@ -49,7 +49,7 @@
       "conflict_shadows",
       "shapes"
     ],
-    "visible_layers": "ffffffff_ffffffff_fffffff5_5ff5ff71",
+    "visible_layers": "ffffffff_ffffffff_fffffff5_5ff5ff7f",
     "zone_display_mode": 0
   },
   "git": {
@@ -114,7 +114,7 @@
   "project": {
     "files": [
       {
-        "name": "W4MLB_Band_Display.kicad_sch",
+        "name": "W4MLB_Band_Display.kicad_pcb",
         "open": false,
         "window": {
           "display": 1,
@@ -126,7 +126,7 @@
         }
       },
       {
-        "name": "W4MLB_Band_Display.kicad_pcb",
+        "name": "W4MLB_Band_Display.kicad_sch",
         "open": false,
         "window": {
           "display": 1,

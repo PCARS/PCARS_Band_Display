@@ -5,7 +5,7 @@
 	(uuid "6d991f54-9d5e-4f6b-b59b-1e52e875bc4c")
 	(paper "A4")
 	(title_block
-		(title "PCARS Radio Station Band/Mode Display")
+		(title "PCARS Radio Station Band/Mode Display Controller Board")
 		(date "2025-04-17")
 		(rev "1.0")
 		(company "DL Designs")
