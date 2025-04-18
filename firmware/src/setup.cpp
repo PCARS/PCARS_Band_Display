@@ -15,6 +15,16 @@ void setup_Digital_Pins()
 }
 
 
+void setup_PWM()
+{
+
+  ledcSetup( BUZZER_CHANNEL, BUZZER_FREQUENCY , 8 );       // Channel 0, 2kHz tone, 8-bit resolution
+
+  ledcAttachPin( BUZZER_PIN, BUZZER_CHANNEL ); // Attach pin to channel 0
+
+}
+
+
 void setup_Serial()
 {
 

@@ -13,6 +13,10 @@
 
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>  // LED matrix library
 
+#define BUZZER_PIN 15  // Assign pin to drive passive buzzer with PWM
+#define BUZZER_FREQUENCY 2500  // 2.5kHz typically close to buzzer resonant frequency
+#define BUZZER_CHANNEL 0
+
 
 #define SERIAL_BAUD 115200  // Baud rate for printing
 
@@ -104,6 +108,7 @@ void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
 void query_Radio(HardwareSerial &radio, uint8_t station_num);
 void setup_Digital_Pins();
+void setup_PWM();
 
 
 #endif

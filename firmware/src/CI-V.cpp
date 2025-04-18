@@ -192,6 +192,8 @@ bool band_Conflict_Check()
     {
       digitalWrite( LED_BUILTIN, HIGH );  // Active band conflict alert
 
+      ledcWriteTone( BUZZER_CHANNEL, BUZZER_FREQUENCY ); // Play 2kHz tone
+
       led_On = true;
 
       return true;
@@ -206,6 +208,8 @@ bool band_Conflict_Check()
     if( led_On == true )
     {
       digitalWrite( LED_BUILTIN, LOW );  // Turn of band conflict alert
+
+      ledcWriteTone( BUZZER_CHANNEL, 0 ); // 0 Hz stops the tone
       
       led_On = false;
 
