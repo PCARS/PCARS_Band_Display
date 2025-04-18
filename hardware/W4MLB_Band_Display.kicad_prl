@@ -114,7 +114,7 @@
   "project": {
     "files": [
       {
-        "name": "W4MLB_Band_Display.kicad_pcb",
+        "name": "W4MLB_Band_Display.kicad_sch",
         "open": false,
         "window": {
           "display": 1,
@@ -126,7 +126,7 @@
         }
       },
       {
-        "name": "W4MLB_Band_Display.kicad_sch",
+        "name": "W4MLB_Band_Display.kicad_pcb",
         "open": false,
         "window": {
           "display": 1,
