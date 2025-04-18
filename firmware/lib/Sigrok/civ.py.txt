@@ -1,0 +1,115 @@
+""" How to Test in PulseView
+
+   Save civ.py to ~/.local/share/libsigrokdecode/decoders/civ/
+
+    Restart PulseView.
+
+    Add a UART decoder.
+
+    Load CI-V Decoder.
+
+#   Capture Icom radio traffic.
+"""
+from sigrokdecode import Decoder
+
+class Decoder(Decoder):
+    api_version = 3
+    id = 'civ'
+    name = 'CI-V'
+    longname = 'Icom CI-V Protocol with TX status'
+    desc = 'Decoder for Icom CI-V serial protocol, including transceive data and TX status.'
+    license = 'gplv2+'
+    inputs = ['uart']
+    outputs = ['civ']
+    tags = ['Radio', 'ICOM']
+    annotations = (
+        ('cmd', 'CI-V Command'),
+        ('addr', 'CI-V Address'),
+        ('data', 'CI-V Data'),
+        ('freq', 'CI-V Frequency Response'),
+        ('mode', 'CI-V Mode Response'),
+        ('freq_tx', 'CI-V Frequency Change (Transceive)'),
+        ('mode_tx', 'CI-V Mode Change (Transceive)'),
+        ('tx_status', 'CI-V TX Status'),
+    )
+    annotation_rows = (
+        ('messages', 'CI-V Messages', (0, 1, 2, 3, 4, 5, 6, 7)),
+    )
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.buf = []
+
+    def decode(self, ss, es, data):
+        if data[0] == 'DATA':
+            byte = data[1]
+            self.buf.append(byte)
+
+            if len(self.buf) >= 2 and self.buf[:2] != [0xFE, 0xFE]:
+                self.buf.pop(0)  # Shift buffer until we find a valid start
+
+            if len(self.buf) > 2 and self.buf[-1] == 0xFD:  # End of frame
+                self.process_packet(ss, es)
+
+    def process_packet(self, ss, es):
+        if len(self.buf) < 5:
+            self.buf.clear()
+            return
+
+        dest_addr = self.buf[2]
+        src_addr = self.buf[3]
+        cmd = self.buf[4]
+        data = self.buf[5:-1]  # Exclude 0xFD
+
+        self.put(ss, es, self.out_ann, [1, ['Addr: %02X' % dest_addr, 'Addr']])
+        self.put(ss, es, self.out_ann, [0, ['Cmd: %02X' % cmd, 'Cmd']])
+
+        if cmd == 0x00:  # Transceive Frequency Change
+            if len(data) == 5:
+                freq = self.decode_frequency(data)
+                self.put(ss, es, self.out_ann, [5, [f'TX Freq: {freq} Hz', 'Freq TX']])
+
+        elif cmd == 0x01:  # Transceive Mode Change
+            if len(data) >= 2:
+                mode, filter_id = data[:2]
+                mode_str = self.decode_mode(mode)
+                self.put(ss, es, self.out_ann, [6, [f'TX Mode: {mode_str}, Filter: {filter_id}', 'Mode TX']])
+
+        elif cmd == 0x1C:  # TX Status Notification
+            if len(data) >= 1:
+                tx_status = data[0]
+                status_str = 'Transmitting' if tx_status == 0x01 else 'Receiving'
+                self.put(ss, es, self.out_ann, [7, [f'TX Status: {status_str}', 'TX Status']])
+
+        elif cmd == 0x03:  # Frequency Response
+            if len(data) == 5:
+                freq = self.decode_frequency(data)
+                self.put(ss, es, self.out_ann, [3, [f'Freq: {freq} Hz', 'Freq']])
+
+        elif cmd == 0x04:  # Mode Response
+            if len(data) >= 2:
+                mode, filter_id = data[:2]
+                mode_str = self.decode_mode(mode)
+                self.put(ss, es, self.out_ann, [4, [f'Mode: {mode_str}, Filter: {filter_id}', 'Mode']])
+
+        else:  # General case
+            if data:
+                self.put(ss, es, self.out_ann, [2, ['Data: ' + ' '.join('%02X' % b for b in data), 'Data']])
+
+        self.buf.clear()
+
+    def decode_frequency(self, data):
+        """ Converts 5-byte BCD data to frequency in Hz """
+        freq_bcd = ''.join(f'{b:02X}' for b in reversed(data))  # Reverse for correct order
+        return int(freq_bcd) * 10  # Convert BCD to integer and multiply by 10 Hz
+
+    def decode_mode(self, mode):
+        """ Decodes Icom mode byte to human-readable mode name """
+        mode_map = {
+            0x00: 'LSB', 0x01: 'USB', 0x02: 'AM', 0x03: 'CW',
+            0x04: 'RTTY', 0x05: 'FM', 0x07: 'CW-R',
+            0x08: 'RTTY-R'
+        }
+        return mode_map.get(mode, f'Unknown ({mode:02X})')

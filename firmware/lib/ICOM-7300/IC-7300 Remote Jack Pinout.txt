@@ -1,0 +1,57 @@
+Tip ->  CI-V data
+Ring -> NC
+Sleeve -> GND
+
+Connections
+
+    IC-7300 (Remote Jack) → Optocoupler Input
+
+        Tip → Optocoupler Anode (+)
+
+        Sleeve (GND) → Optocoupler Cathode (-)
+	
+	390Ω current limiting resistor
+
+
+	R = (5V - 1.2V) / 10mA  
+	R = 3.8V / 10mA  
+	R = 380Ω (round to 390Ω for safety)
+
+    Optocoupler Output (Transistor Side) → Arduino
+
+        Collector → Arduino RX Pin (e.g., D2 for Radio 1, D3 for Radio 2)
+
+        Emitter → GND
+
+        4.7kΩ Pull-up resistor between the collector and 5V to ensure proper signal reading.
+
+
+
+The pull-up resistor for the CI-V bus is inside the radio, but its presence and value depend on the specific Icom model and settings.
+Inside the Radio:
+
+    Most Icom radios (including the IC-7300) have an internal pull-up resistor on the CI-V data line.
+
+    The typical value is around 4.7kΩ - 10kΩ, pulling the line up to 5V.
+
+    This allows multiple devices (tuner, amp, PC, etc.) to share the same single-wire bus.
+
+
+How to Check If a Pull-Up Resistor Exists
+
+    Measure Voltage on the CI-V Tip (Idle State)
+
+        Disconnect any external CI-V devices.
+
+        Use a multimeter to measure the voltage between the tip (data line) and sleeve (ground) of the 3.5mm CI-V jack.
+
+        If the voltage is ~5V, the radio has an internal pull-up.
+
+        If the voltage is ~0V, the radio may not have a pull-up, or it only activates when a device is connected.
+
+    Use an Oscilloscope or Logic Analyzer
+
+        Observe the CI-V bus while the radio transmits data.
+
+        If the high level is weak or unstable, an external pull-up may help.
+
