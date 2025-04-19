@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 0,
+    "active_layer": 35,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
@@ -49,7 +49,7 @@
       "conflict_shadows",
       "shapes"
     ],
-    "visible_layers": "ffffffff_ffffffff_fffffff5_5ff5ff7b",
+    "visible_layers": "ffffffff_ffffffff_fffffff7_57f5ff7b",
     "zone_display_mode": 0
   },
   "git": {
@@ -113,18 +113,6 @@
   "open_jobsets": [],
   "project": {
     "files": [
-      {
-        "name": "W4MLB_Band_Display.kicad_sch",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": 1912,
-          "pos_y": 22,
-          "size_x": 1696,
-          "size_y": 1026
-        }
-      },
       {
         "name": "W4MLB_Band_Display.kicad_pcb",
         "open": false,
