@@ -5,20 +5,10 @@
 MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
 
 
-void setup_Digital_Pins()
-{
-
-  pinMode(LED_BUILTIN, OUTPUT);  // Set LED as output
-
-  digitalWrite(LED_BUILTIN, LOW);  // Off by default
-
-}
-
-
 void setup_PWM()
 {
 
-  ledcSetup( BUZZER_CHANNEL, BUZZER_FREQUENCY , 8 );       // Channel 0, 2kHz tone, 8-bit resolution
+  ledcSetup( BUZZER_CHANNEL, BUZZER_FREQUENCY, 8 );       // Channel 0, 2kHz tone, 8-bit resolution
 
   ledcAttachPin( BUZZER_PIN, BUZZER_CHANNEL ); // Attach pin to channel 0
 

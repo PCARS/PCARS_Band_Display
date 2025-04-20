@@ -179,44 +179,33 @@ String decodeMode( byte *modeBytes )
 bool band_Conflict_Check()
 {
 
-  static uint32_t conflict_detected_timer = 0;
-  static bool led_On = false;
+  static uint32_t conflict_detected_timer = 0;  // Store how much time band conflict has been active
+  uint32_t time_now;  // Store current time
 
   if( band_1 == band_2 )  // Check to see if bands are the same for both radios
   {
-
-    if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
-      conflict_detected_timer = millis();  // Recorded time when band conflict was first detected
+    time_now = millis();  // Get current time
     
-    else if ( millis() - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME && led_On == false )  // Check if conflict has persisted
+    if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
+      conflict_detected_timer = time_now;  // Recorded time when band conflict was first detected
+    
+    else if ( time_now - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME )  // Check if conflict has persisted
     {
-      digitalWrite( LED_BUILTIN, HIGH );  // Active band conflict alert
-
-      ledcWriteTone( BUZZER_CHANNEL, BUZZER_FREQUENCY ); // Play 2kHz tone
-
-      led_On = true;
-
-      return true;
+      ledcWriteTone( BUZZER_CHANNEL, BUZZER_FREQUENCY );  // Activate buzzer
+        
+      return true;  // Return true since conflict has been present for the determined time
     }
 
   }
+
 
   else
   {
     conflict_detected_timer = 0;  // Reset band conflict timer if no conflict exists
 
-    if( led_On == true )
-    {
-      digitalWrite( LED_BUILTIN, LOW );  // Turn of band conflict alert
-
-      ledcWriteTone( BUZZER_CHANNEL, 0 ); // 0 Hz stops the tone
-      
-      led_On = false;
-
-    }
-
+    ledcWriteTone( BUZZER_CHANNEL, 0 ); // 0 Hz stops the buzzer tone
   }
 
-  return false;
+  return false;  // If you made it this far the conflict is no longer present
   
 }

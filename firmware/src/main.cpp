@@ -22,8 +22,6 @@
 void setup()
 {
 
-  setup_Digital_Pins();  // Setup digital pins for use
-
   setup_PWM();  // Setup PWM for driving passive buzzer
   
   setup_Serial();  // Setup serial ports for printing and CI-V radio communication

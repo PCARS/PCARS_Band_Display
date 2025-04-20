@@ -5,6 +5,20 @@
 #include <Adafruit_GFX.h>  // LED matrix library dependancy
 
 
+#define BUZZER_PIN 2  // Assign pin to drive passive buzzer with PWM
+#define BUZZER_FREQUENCY 2500  // 2.5kHz typically close to buzzer resonant frequency
+#define BUZZER_CHANNEL 0  // Assign an PWM channel to the buzzer
+
+
+#define SERIAL_BAUD 115200  // Baud rate for printing
+
+#define CI_V_BAUD 19200  // Change if needed to match radio's baud date
+#define RX_1 34  // Radio Station 1 UART RX pin
+#define TX_1 23  // Radio Station 1 UART TX pin
+#define RX_2 35  // Radio Station 2 UART RX pin
+#define TX_2 19  // Radio Station 2 UART TX pin
+
+
 // Define the panel configuration to override defaults in library
 #define MATRIX_WIDTH 64   // Matrix panel width in pixels
 #define MATRIX_HEIGHT 64  // Matrix panel height in pixels
@@ -13,42 +27,27 @@
 
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>  // LED matrix library
 
-#define BUZZER_PIN 15  // Assign pin to drive passive buzzer with PWM
-#define BUZZER_FREQUENCY 2500  // 2.5kHz typically close to buzzer resonant frequency
-#define BUZZER_CHANNEL 0
-
-
-#define SERIAL_BAUD 115200  // Baud rate for printing
-
-#define CI_V_BAUD 19200  // Change if needed to match radio's baud date
-#define RX_1 35  // Radio Station 1 UART RX pin
-#define TX_1 23  // Radio Station 1 UART TX pin
-#define RX_2 34  // Radio Station 2 UART RX pin
-#define TX_2 33  // Radio Station 2 UART TX pin
-
-
-
 // ESP32 DevKit Pin Definitions (Avoiding Serial1 and Serial2 conflicts)
-// See 64x64 LED Matrix Connector Pinout.PNG in lib/Reference Docs folder
+// See 64x64 LED Matrix Connector Pinout.PNG in Reference Docs folder
 
 // Right side of ribbon cable with connector facing towards you, red stripe up
-#define P_R1  21
-#define P_B1  19
-#define P_R2  18
-#define P_B2   5
-#define P_A   17
-#define P_C   16
-#define P_CLK  4
-#define P_OE  15
+#define P_R1  32
+#define P_B1  33
+#define P_R2  25
+#define P_B2   26
+#define P_A   27
+#define P_C   14
+#define P_CLK 12
+#define P_OE  13
 
 // Left side of ribbon cable with connector facing towards you, red stripe up
-#define P_G1  25
+#define P_G1  18
 // GND PIN
-#define P_G2  26
-#define P_E   27 // Required for 64x64 LED Matrix
-#define P_B   14
-#define P_D   12
-#define P_LAT 13  // A.K.A. Strobe
+#define P_G2  5
+#define P_E   17 // Required for 64x64 LED Matrix
+#define P_B   16
+#define P_D   4
+#define P_LAT 15  // A.K.A. Strobe
 // GND PIN
 
 
@@ -107,7 +106,6 @@ void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
 void query_Radio(HardwareSerial &radio, uint8_t station_num);
-void setup_Digital_Pins();
 void setup_PWM();
 
 
