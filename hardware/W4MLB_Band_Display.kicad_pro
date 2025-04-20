@@ -64,11 +64,11 @@
           ""
         ],
         [
-          "duplicate_footprints|186570000|67230000|32f770e3-d92e-4227-b1f8-f83435edffed|25c3b632-11f3-4442-8485-8791b29ac8ad",
+          "duplicate_footprints|187000000|66500000|32f770e3-d92e-4227-b1f8-f83435edffed|25c3b632-11f3-4442-8485-8791b29ac8ad",
           ""
         ],
         [
-          "extra_footprint|124490000|67130000|25c3b632-11f3-4442-8485-8791b29ac8ad|00000000-0000-0000-0000-000000000000",
+          "extra_footprint|122200000|66500000|25c3b632-11f3-4442-8485-8791b29ac8ad|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
@@ -80,7 +80,7 @@
           ""
         ],
         [
-          "extra_footprint|186570000|67230000|32f770e3-d92e-4227-b1f8-f83435edffed|00000000-0000-0000-0000-000000000000",
+          "extra_footprint|187000000|66500000|32f770e3-d92e-4227-b1f8-f83435edffed|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
@@ -88,8 +88,8 @@
           ""
         ],
         [
-          "solder_mask_bridge|185593257|98270913|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|7c34e3bb-dbba-46c1-8f09-6023cdf13071",
-          "No issue. Pads tied toegther electrically."
+          "solder_mask_bridge|173966812|107233032|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|7c34e3bb-dbba-46c1-8f09-6023cdf13071",
+          "Pad 4 can be connected to +5V net."
         ]
       ],
       "meta": {
