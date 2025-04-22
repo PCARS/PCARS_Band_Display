@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 2.54
+          "drill": 1.6,
+          "height": 2.4,
+          "width": 2.4
         },
         "silk_line_width": 0.125,
         "silk_text_italic": false,
@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.125,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.35
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -60,36 +60,20 @@
       ],
       "drc_exclusions": [
         [
-          "duplicate_footprints|124510000|115250000|b13cb23b-f455-4766-910a-d2ef34f0cf5f|25c3b632-11f3-4442-8485-8791b29ac8ad",
-          ""
-        ],
-        [
-          "duplicate_footprints|187000000|66500000|32f770e3-d92e-4227-b1f8-f83435edffed|25c3b632-11f3-4442-8485-8791b29ac8ad",
-          ""
-        ],
-        [
-          "extra_footprint|122200000|66500000|25c3b632-11f3-4442-8485-8791b29ac8ad|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "extra_footprint|124510000|115250000|b13cb23b-f455-4766-910a-d2ef34f0cf5f|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "extra_footprint|170500000|115250000|6e5e34f5-1522-4ab5-8a49-34209cfcda89|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "extra_footprint|187000000|66500000|32f770e3-d92e-4227-b1f8-f83435edffed|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
           "lib_footprint_mismatch|-29322500|195205000|c2ee5f8d-77f7-4e93-88a0-89c87d48b933|00000000-0000-0000-0000-000000000000",
           ""
         ],
         [
-          "solder_mask_bridge|173966812|107233032|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|7c34e3bb-dbba-46c1-8f09-6023cdf13071",
-          "Pad 4 can be connected to +5V net."
+          "lib_footprint_mismatch|179750000|107800000|f8206ac2-fb6e-4de8-af9e-7e1a79d4c34c|00000000-0000-0000-0000-000000000000",
+          "Connected pins 3 & 4 to PWR_IN & +5V respectively."
+        ],
+        [
+          "net_conflict|179750000|107800000|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|00000000-0000-0000-0000-000000000000",
+          "Schematic symbol for F1 does not specify pins 3 & 4."
+        ],
+        [
+          "net_conflict|179750000|107800000|305c19d4-7f47-44a8-9800-6640cfc15800|00000000-0000-0000-0000-000000000000",
+          "Schematic symbol for F1 does not specify pins 3 & 4."
         ]
       ],
       "meta": {
