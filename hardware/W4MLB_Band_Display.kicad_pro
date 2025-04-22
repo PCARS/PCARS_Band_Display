@@ -65,15 +65,15 @@
         ],
         [
           "lib_footprint_mismatch|179750000|107800000|f8206ac2-fb6e-4de8-af9e-7e1a79d4c34c|00000000-0000-0000-0000-000000000000",
-          "Connected pins 3 & 4 to PWR_IN & +5V respectively."
+          "Pins 3 & 4 can be connected to PWR_IN & +5V respectively."
         ],
         [
           "net_conflict|179750000|107800000|0a7fcf57-cea3-4e31-860d-a74cc37e42a1|00000000-0000-0000-0000-000000000000",
-          "Schematic symbol for F1 does not specify pins 3 & 4."
+          "Pins 3 & 4 not includded in schematic."
         ],
         [
           "net_conflict|179750000|107800000|305c19d4-7f47-44a8-9800-6640cfc15800|00000000-0000-0000-0000-000000000000",
-          "Schematic symbol for F1 does not specify pins 3 & 4."
+          "Pins 3 & 4 not includded in schematic."
         ]
       ],
       "meta": {

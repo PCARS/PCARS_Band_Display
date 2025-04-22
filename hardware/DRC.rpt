@@ -1,0 +1,25 @@
+** Drc report for W4MLB_Band_Display.kicad_pcb **
+** Created on 2025-04-22T01:47:19-0400 **
+
+** Found 2 DRC violations **
+[lib_footprint_mismatch]: Footprint 'MODULE_ESP32_DEVKIT_V1' does not match copy in library 'Footprints'.
+    Local override; warning (excluded)
+    @(-29.0500 mm, 195.2050 mm): Footprint U1
+[lib_footprint_mismatch]: Footprint 'FUSE_3568-15' does not match copy in library 'Footprints'.
+    Local override; warning (excluded)
+    @(179.7500 mm, 107.8000 mm): Footprint F1
+    Pins 3 & 4 can be connected to PWR_IN & +5V respectively.
+
+** Found 0 unconnected pads **
+
+** Found 2 Footprint errors **
+[net_conflict]: No corresponding pin found in schematic.
+    Local override; warning (excluded)
+    @(184.7100 mm, 106.1000 mm): PTH pad 3
+    Pins 3 & 4 not includded in schematic.
+[net_conflict]: No corresponding pin found in schematic.
+    Local override; warning (excluded)
+    @(174.7900 mm, 106.1000 mm): PTH pad 4
+    Pins 3 & 4 not includded in schematic.
+
+** End of Report **
