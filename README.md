@@ -18,7 +18,7 @@ The Band Display system consists of:
   <tr>
     <td align="center">
       <img src="https://github.com/user-attachments/assets/d5262754-5991-46af-958d-b24738c66b2d" width="300"/><br/>
-      <sub>PCARS Band Display Overview</sub>
+      <sub>PCARS Band Display</sub>
     </td>
   </tr>
 </table>
