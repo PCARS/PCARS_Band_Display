@@ -14,6 +14,10 @@ The Band Display system consists of:
 2. **Single Shared 64x64 RGB LED Matrix Display**  
 3. **Audible Conflict Alert System**
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d5262754-5991-46af-958d-b24738c66b2d" alt="PCARS Band Display Overview" width="600"/>
+</p>
+
 ---
 
 ## Hardware Details
@@ -65,9 +69,3 @@ The Band Display system consists of:
 - Conflict alert system with 3-second delay buzzer  
 - ESP32-driven logic with efficient HUB75 display handling  
 - Clean power distribution with dedicated matrix power input
-
-
-
-
-
-![20250328_100946~2](https://github.com/user-attachments/assets/d5262754-5991-46af-958d-b24738c66b2d)
