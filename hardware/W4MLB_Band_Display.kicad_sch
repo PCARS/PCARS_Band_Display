@@ -10183,8 +10183,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.005uF"
-			(at 219.964 145.288 0)
+		(property "Value" "4.7nF"
+			(at 221.742 145.288 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11472,7 +11472,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.005uF"
+		(property "Value" "4.7nF"
 			(at 28.956 69.596 0)
 			(effects
 				(font
@@ -11874,7 +11874,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.005uF"
+		(property "Value" "4.7nF"
 			(at 26.162 22.86 0)
 			(effects
 				(font
