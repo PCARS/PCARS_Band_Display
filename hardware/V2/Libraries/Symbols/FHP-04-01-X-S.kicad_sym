@@ -1,0 +1,95 @@
+
+(kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)
+  (symbol "FHP-04-01-X-S" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+    (property "Reference" "J" (id 0) (at -5.08 7.62 0)
+      (effects (font (size 1.27 1.27)) (justify top left))
+    )
+    (property "Value" "FHP-04-01-X-S" (id 1) (at -5.08 -20.32 0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Footprint" "FHP-04-01-X-S:SAMTEC_FHP-04-01-X-S" (id 2) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "PARTREV" "A" (id 4) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "STANDARD" "Manufacturer recommendations" (id 5) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MAXIMUM_PACKAGE_HEIGHT" "8.89 mm" (id 6) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MANUFACTURER" "Samtec" (id 7) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (symbol "FHP-04-01-X-S_0_0"
+      (rectangle (start -5.08 -17.78) (end 5.08 5.08)
+        (stroke (width 0.254)) (fill (type background))
+      )
+      (pin power_in line (at -10.16 2.54 0) (length 5.08)
+        (name "01"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "01_1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -2.54 0) (length 5.08)
+        (name "02"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "02_1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -7.62 0) (length 5.08)
+        (name "03"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "03_1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -12.7 0) (length 5.08)
+        (name "04"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "04_1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 0.0 0) (length 5.08)
+        (name "01__1"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "01_2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -5.08 0) (length 5.08)
+        (name "02__1"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "02_2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -10.16 0) (length 5.08)
+        (name "03__1"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "03_2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -10.16 -15.24 0) (length 5.08)
+        (name "04__1"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "04_2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+    )
+  )
+)

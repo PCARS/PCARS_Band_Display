@@ -1,0 +1,19 @@
+### Footprint positions - created on 2025-04-14T05:20:26-0400 ###
+### Printed by KiCad version 9.0.0
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                    Package                                             PosX       PosY       Rot  Side
+C2        10000uF                CP_Axial_L18.0mm_D8.0mm_P25.00mm_Horizontal     174.7500  -122.7500  180.0000  top
+D1        1N4001                 D_0805_2012Metric_Pad1.15x1.40mm_HandSolder     142.7500   -96.7750  -90.0000  top
+D2        1N4001                 D_0805_2012Metric_Pad1.15x1.40mm_HandSolder     150.7500   -99.9750  -90.0000  top
+D3        LED                    LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder   183.7500   -76.5250   90.0000  top
+F1        3568-15                FUSE_3568-15                                    182.5100  -103.4500   90.0000  top
+J1        SSW-115-01-G-S         SAMTEC_SSW-115-01-G-S                           121.8300   -71.8600  -90.0000  top
+J2        SSW-115-01-G-S         SAMTEC_SSW-115-01-G-S                           147.2300   -71.8600  -90.0000  top
+J4        SAMTEC-TST-108-01-X-D  SAMTEC-TST-108-01-X-D                           162.0400   -91.1000   90.0000  top
+J5        EJ503B                 MPD_EJ503B                                      182.9500  -115.9175    0.0000  top
+J6        796683-2               TE_796683-2                                     181.0000   -91.0000   90.0000  top
+J7        PJRAN1X1U01X           SWITCHCRAFT_PJRAN1X1U01X                        126.0175  -125.0000    0.0000  top
+J8        PJRAN1X1U01X           SWITCHCRAFT_PJRAN1X1U01X                        141.2675  -125.0000    0.0000  top
+R1        330                    R_0805_2012Metric_Pad1.20x1.40mm_HandSolder     179.5000   -75.5000  180.0000  top
+## End

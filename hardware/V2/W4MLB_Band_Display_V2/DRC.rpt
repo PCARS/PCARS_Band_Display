@@ -1,0 +1,14 @@
+** Drc report for W4MLB_Band_Display_V2.kicad_pcb **
+** Created on 2025-04-23T03:14:58-0400 **
+
+** Found 1 DRC violations **
+[lib_footprint_mismatch]: Footprint 'MODULE_ESP32_DEVKIT_V1' does not match copy in library 'Footprints'.
+    Local override; warning (excluded)
+    @(29.5500 mm, 168.2850 mm): Footprint U1
+    Not an issue.
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** End of Report **
