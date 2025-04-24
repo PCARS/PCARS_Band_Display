@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 25,
+    "active_layer": 5,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
@@ -24,8 +24,8 @@
       "otherItems": false,
       "pads": false,
       "text": true,
-      "tracks": false,
-      "vias": false,
+      "tracks": true,
+      "vias": true,
       "zones": false
     },
     "visible_items": [
@@ -49,7 +49,7 @@
       "conflict_shadows",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_00000000_82000080",
+    "visible_layers": "00000000_00000000_00000000_02000025",
     "zone_display_mode": 0
   },
   "git": {
@@ -113,18 +113,6 @@
   "open_jobsets": [],
   "project": {
     "files": [
-      {
-        "name": "W4MLB_Band_Display_V2.kicad_sch",
-        "open": false,
-        "window": {
-          "display": 1,
-          "maximized": true,
-          "pos_x": -8,
-          "pos_y": -8,
-          "size_x": 1936,
-          "size_y": 1056
-        }
-      },
       {
         "name": "W4MLB_Band_Display_V2.kicad_pcb",
         "open": false,
