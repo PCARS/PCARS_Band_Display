@@ -179,8 +179,9 @@ String decodeMode( byte *modeBytes )
 bool band_Conflict_Check()
 {
 
-  static uint32_t conflict_detected_timer = 0;  // Store how much time band conflict has been active
+  static uint32_t conflict_detected_timer;  // Store how much time band conflict has been active
   uint32_t time_now;  // Store current time
+  static bool conflict_active;  // Store state of conflict
 
   if( band_1 == band_2 )  // Check to see if bands are the same for both radios
   {
@@ -189,10 +190,12 @@ bool band_Conflict_Check()
     if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
       conflict_detected_timer = time_now;  // Recorded time when band conflict was first detected
     
-    else if ( time_now - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME )  // Check if conflict has persisted
+    else if ( time_now - conflict_detected_timer  >= BAND_CONFLICT_HOLD_TIME && conflict_active == false )  // Check if conflict has persisted
     {
       ledcWriteTone( BUZZER_CHANNEL, BUZZER_FREQUENCY );  // Activate buzzer
-        
+
+      conflict_active = true;
+      
       return true;  // Return true since conflict has been present for the determined time
     }
 
@@ -202,6 +205,8 @@ bool band_Conflict_Check()
   else
   {
     conflict_detected_timer = 0;  // Reset band conflict timer if no conflict exists
+
+    conflict_active = false;
 
     ledcWriteTone( BUZZER_CHANNEL, 0 ); // 0 Hz stops the buzzer tone
   }

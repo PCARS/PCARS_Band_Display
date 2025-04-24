@@ -6,7 +6,7 @@
 
 
 #define BUZZER_PIN 2  // Assign pin to drive passive buzzer with PWM
-#define BUZZER_FREQUENCY 2500  // 2.5kHz typically close to buzzer resonant frequency
+#define BUZZER_FREQUENCY 2400  // 2.5kHz typically close to buzzer resonant frequency
 #define BUZZER_CHANNEL 0  // Assign an PWM channel to the buzzer
 
 
@@ -90,7 +90,7 @@
 #define TEXT_BOX_X ( MATRIX_WIDTH - RIGHT_MARGIN - TEXT_BOX_WIDTH )
 #define ROW_SEPARATION 10  // Space between displayed rows
 #define FIRST_ROW_Y 1  // Y-value of the first displayed row, 0,0 is top left of display
-#define SECOND_ROW_Y FIRST_ROW_Y  +  5  // Y-value of the 2nd displayed row. Offset approximately 2/3 down from top of first row
+#define SECOND_ROW_Y FIRST_ROW_Y  +  ROW_SEPARATION  // Y-value of the 2nd displayed row.
 #define THIRD_ROW_Y  SECOND_ROW_Y +  ROW_SEPARATION  // Y-value of the 2nd displayed row
 #define FOURTH_ROW_Y THIRD_ROW_Y  +  ROW_SEPARATION  // Y-value of the 3rd displayed row
 #define FIFTH_ROW_Y FOURTH_ROW_Y  +  ROW_SEPARATION  // Y-value of the 4th displayed row
