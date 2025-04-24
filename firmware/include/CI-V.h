@@ -31,6 +31,20 @@
 
 #define BAND_CONFLICT_HOLD_TIME 3000  // Time required before alerting band conflict [ms]
 
+#define TWO_TONE_SIREN  // Comment out to disable two-tone WEE-OOO and enable single tone alert
+
+#ifdef TWO_TONE_SIREN
+
+#define TONE_PERIOD 700   // Time period for each tone in milliseconds
+#define TONE_1_FREQ 1000  // Frequency of the first tone (WEE)
+#define TONE_2_FREQ 500   // Frequency of the second tone (OOO)
+
+#else
+ 
+#define TONE_1_FREQ 2400  // Frequency of the single tone, near resonant frequency of 2400 Hz 
+
+#endif
+
 extern String band_1;    // Store current band in use for radio # 1
 extern String mode_1;    // Store current mode in use for radio # 1
 extern String band_2;    // Store current band in use for radio # 2

@@ -178,39 +178,63 @@ String decodeMode( byte *modeBytes )
 
 bool band_Conflict_Check()
 {
+  static uint32_t conflict_detected_timer = 0;
+  static bool conflict_active = false;  // Conflict active flag
+  uint32_t time_now = millis();
 
-  static uint32_t conflict_detected_timer;  // Store how much time band conflict has been active
-  uint32_t time_now;  // Store current time
-  static bool conflict_active;  // Store state of conflict
+#ifdef TWO_TONE_SIREN
 
-  if( band_1 == band_2 )  // Check to see if bands are the same for both radios
+  static uint32_t last_siren_time = 0;  // Keep track of time for alternating tones
+
+#endif
+
+  // Check if band_1 == band_2 directly
+  if ( band_1 == band_2 )
   {
-    time_now = millis();  // Get current time
+    // If conflict is detected, start the timer
+    if ( conflict_detected_timer == 0 )  // First time detecting conflict
+      conflict_detected_timer = time_now;
     
-    if( conflict_detected_timer == 0 )  // Check to see if this is the first time that the conflict was detected
-      conflict_detected_timer = time_now;  // Recorded time when band conflict was first detected
-    
-    else if ( time_now - conflict_detected_timer  >= BAND_CONFLICT_HOLD_TIME && conflict_active == false )  // Check if conflict has persisted
+    else if ( time_now - conflict_detected_timer >= BAND_CONFLICT_HOLD_TIME && conflict_active == false )  // If conflict persists for the specified time and conflict isn't already active
     {
-      ledcWriteTone( BUZZER_CHANNEL, BUZZER_FREQUENCY );  // Activate buzzer
+      conflict_active = true;  // Set conflict flag
 
-      conflict_active = true;
-      
-      return true;  // Return true since conflict has been present for the determined time
+      ledcWriteTone( BUZZER_CHANNEL, TONE_1_FREQ );  // Start the buzzer with an initial tone
+
+      return true;
     }
 
+#ifdef TWO_TONE_SIREN
+
+    if ( conflict_active )      // If conflict is active, play alternating tones for the siren
+    {
+      // Alternate between two tones every `TONE_PERIOD` milliseconds
+      if ( time_now - last_siren_time >= TONE_PERIOD )
+      {
+        last_siren_time = time_now;  // Update the time for the next tone
+
+        // Alternate between the two tones
+        if ( ( time_now / TONE_PERIOD ) % 2 == 0 )
+          ledcWriteTone( BUZZER_CHANNEL, TONE_1_FREQ );  // WEE
+        
+        else
+          ledcWriteTone( BUZZER_CHANNEL, TONE_2_FREQ );  // OOO
+      }
+    }
+
+#endif
+
   }
 
-
-  else
+  else    // If the bands are no longer the same, reset everything
   {
-    conflict_detected_timer = 0;  // Reset band conflict timer if no conflict exists
+    conflict_detected_timer = 0;  // Reset conflict timer
 
-    conflict_active = false;
+    conflict_active = false;  // Reset conflict flag
 
-    ledcWriteTone( BUZZER_CHANNEL, 0 ); // 0 Hz stops the buzzer tone
+    ledcWriteTone( BUZZER_CHANNEL, 0 );  // Stop buzzer by setting frequency to 0
   }
 
-  return false;  // If you made it this far the conflict is no longer present
-  
+  return false;
+
 }
