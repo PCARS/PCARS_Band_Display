@@ -1,8 +1,8 @@
-### Missing 3D models - created on 2025-04-11 03:38
+### Missing 3D models - created on 2025-04-29 20:23
 ### Printed by checking_3D_models plugin
-Board file: C:/Users/sapy4/OneDrive/Documents/KiCad/W4MLB_Band_Display/W4MLB_Band_Display.kicad_pcb
+Board file: C:\Users\sapy4\Documents\PCARS_Band_Display\hardware\V1\W4MLB_Band_Display.kicad_pcb
 3D missing models written to:
-C:\Users\sapy4\OneDrive\Documents\KiCad\W4MLB_Band_Display\W4MLB_Band_Display_missing3Dmodels.txt
+C:\Users\sapy4\Documents\PCARS_Band_Display\hardware\V1\W4MLB_Band_Display_missing3Dmodels.txt
 -------
 -------
 NUM of 3D missing models:0
