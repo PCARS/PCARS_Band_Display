@@ -117,22 +117,10 @@
         "name": "W4MLB_Band_Display.kicad_pcb",
         "open": false,
         "window": {
-          "display": 1,
+          "display": 0,
           "maximized": true,
           "pos_x": -8,
           "pos_y": -8,
-          "size_x": 1936,
-          "size_y": 1056
-        }
-      },
-      {
-        "name": "W4MLB_Band_Display.kicad_sch",
-        "open": false,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": 1912,
-          "pos_y": 22,
           "size_x": 1696,
           "size_y": 1026
         }
