@@ -104,15 +104,15 @@
 			(plotinvisibletext no)
 			(sketchpadsonfab no)
 			(plotpadnumbers no)
-			(hidednponfab no)
-			(sketchdnponfab yes)
-			(crossoutdnponfab yes)
+			(hidednponfab yes)
+			(sketchdnponfab no)
+			(crossoutdnponfab no)
 			(subtractmaskfromsilk no)
 			(outputformat 1)
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "C:/Users/sapy4/OneDrive/Documents/KiCad/W4MLB_Band_Display/W4MLB_Band_Display/Gerbers")
+			(outputdirectory "../Gerbers/")
 		)
 	)
 	(net 0 "")
@@ -8426,6 +8426,7 @@
 		(property "Reference" "U1"
 			(at 0.25 -0.165 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "9e642275-2474-423a-ac63-0b54bab915d5")
 			(effects
 				(font
@@ -8437,6 +8438,7 @@
 		(property "Value" "ESP32-DEVKIT-V1"
 			(at -0.56 27.36 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "e12b2233-6147-4e91-b16f-8821f9a8c79f")
 			(effects
 				(font
@@ -8627,7 +8629,9 @@
 		)
 		(sheetname "/")
 		(sheetfile "W4MLB_Band_Display.kicad_sch")
-		(attr through_hole board_only exclude_from_pos_files allow_missing_courtyard)
+		(attr through_hole board_only exclude_from_pos_files exclude_from_bom allow_missing_courtyard
+			dnp
+		)
 		(fp_line
 			(start -14.28 -25.475)
 			(end -3.211 -25.475)

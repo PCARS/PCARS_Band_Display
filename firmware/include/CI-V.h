@@ -45,18 +45,18 @@
 
 #endif
 
-extern String band_1;    // Store current band in use for radio # 1
+extern uint8_t band_1;    // Store current band in use for radio # 1
 extern String mode_1;    // Store current mode in use for radio # 1
-extern String band_2;    // Store current band in use for radio # 2
+extern uint8_t band_2;    // Store current band in use for radio # 2
 extern String mode_2;    // Store current mode in use for radio # 2
 extern uint8_t station;  // Store the station number of that last received packet
 
 
 // Function prototypes
 long decodeFrequency( byte *freqBytes );
-String determineBand( long frequency );
+uint8_t determineBand( long frequency );
 String decodeMode( byte *modeBytes );
-void processCIV( HardwareSerial &radio);
+bool processCIV( HardwareSerial &radio);  // Process CI-V packets. Return true of good packet received, false otherwise
 bool band_Conflict_Check();
 
 #endif

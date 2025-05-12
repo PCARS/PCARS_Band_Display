@@ -8,7 +8,7 @@ MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
 void setup_PWM()
 {
 
-  ledcSetup( BUZZER_CHANNEL, BUZZER_FREQUENCY, 8 );       // Channel 0, 2kHz tone, 8-bit resolution
+  ledcSetup( BUZZER_CHANNEL, BUZZER_FREQUENCY, 8 );  // Channel 0, 2kHz tone, 8-bit resolution
 
   ledcAttachPin( BUZZER_PIN, BUZZER_CHANNEL ); // Attach pin to channel 0
 
@@ -100,8 +100,10 @@ void setup_LED_Display()
 
   matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
-  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(band_2) , THIRD_ROW_Y );  // Right justified
-  matrix.print( band_2 );  // Display band
+  String band_2_str = String( band_2 ) + 'M';
+
+  matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(band_2_str) , THIRD_ROW_Y );  // Right justified
+  matrix.print( band_2_str );  // Display band
   
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
   matrix.print( mode_2 );  // Display mode
@@ -128,7 +130,7 @@ uint8_t calculateTextWidth( String text )
 }
 
 
-void query_Radio(HardwareSerial &radio, uint8_t station_num)
+bool query_Radio(HardwareSerial &radio, uint8_t station_num)
 {
 
   const byte query[2][6] = {
@@ -137,6 +139,8 @@ void query_Radio(HardwareSerial &radio, uint8_t station_num)
     {START_OF_MSG, START_OF_MSG, RADIO_ADDR, CTRLR_ADDR, QUERY_MODE_CMD, END_OF_MSG}   // Define mode query command
 
   };
+
+  bool query_response = false;  // Store if radio responded to query
 
   station = station_num;  // Set radio station number
 
@@ -153,8 +157,10 @@ void query_Radio(HardwareSerial &radio, uint8_t station_num)
     for( uint8_t i = 0; i < 6; i++)  // Loop through and discard command echo response
       radio.read();
 
-    processCIV( radio );  // Process CI-V data packet
+    query_response = processCIV( radio );  // Process CI-V data packet and store query result
 
   }
+
+  return query_response;  // Return query response status
 
 }

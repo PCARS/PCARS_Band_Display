@@ -518,7 +518,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "C:/Users/sapy4/OneDrive/Documents/KiCad/W4MLB_Band_Display/W4MLB_Band_Display/Gerbers",
+      "plot": "../Gerbers/",
       "pos_files": "C:/Users/sapy4/OneDrive/Documents/KiCad/W4MLB_Band_Display/W4MLB_Band_Display/Position",
       "specctra_dsn": "",
       "step": "",

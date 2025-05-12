@@ -7,7 +7,7 @@
 
 #define BUZZER_PIN 2  // Assign pin to drive passive buzzer with PWM
 #define BUZZER_FREQUENCY 2400  // 2.5kHz typically close to buzzer resonant frequency
-#define BUZZER_CHANNEL 0  // Assign an PWM channel to the buzzer
+#define BUZZER_CHANNEL 0  // Assign a PWM channel to the buzzer
 
 
 #define SERIAL_BAUD 115200  // Baud rate for printing
@@ -105,7 +105,7 @@ extern MatrixPanel_I2S_DMA matrix;  // Matrix instantiation
 void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
-void query_Radio(HardwareSerial &radio, uint8_t station_num);
+bool query_Radio(HardwareSerial &radio, uint8_t station_num);
 void setup_PWM();
 
 
