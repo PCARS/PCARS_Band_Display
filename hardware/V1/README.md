@@ -24,4 +24,6 @@ The parts library files were download primarily from the SnapEDA website.
 ![Populated Board](Images/W4MLB_Band_Display_Populated.jpg)
 ![Bottom View](Images/W4MLB_Band_Display_Bottom.jpg)
 
+### Bill of Materials:
+
 [Bill of Materials](https://htmlpreview.github.io/?https://github.com/PCARS/PCARS_Band_Display/blob/master/hardware/V1/bom/ibom.html)
