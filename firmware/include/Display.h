@@ -6,7 +6,7 @@
 #include "CI-V.h"
 
 // Function prototypes
-void update_Display( );
+void update_Display( );  // Update display if changes occurred
 
 
 #endif

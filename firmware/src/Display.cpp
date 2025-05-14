@@ -1,4 +1,4 @@
-#include "Display.h"
+#include "Display.h"  // Default header file
 
 void update_Display( )
 {
@@ -42,7 +42,7 @@ void update_Display( )
     
     if ( band_2 != prev_band_2 )  // Only update display if changes occurred
     {
-      String band_2_str = String(band_2) + 'M';
+      String band_2_str = String( band_2 ) + 'M';
       
       matrix.fillRect( TEXT_BOX_X, THIRD_ROW_Y, TEXT_BOX_WIDTH, CHAR_HEIGHT, BLACK );  // Erase old displayed setting
       matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth( band_2_str ) , THIRD_ROW_Y );  // Set cursor to appropriate position
@@ -58,6 +58,20 @@ void update_Display( )
       prev_mode_2 = mode_2;  // Store current setting
     }
 
+  }
+
+/******************************* Clear station(s) band and mode if associated radio is non-responsive ********************************/
+
+  if ( radio1_active == false )
+  {
+    matrix.fillRect( LEFT_MARGIN, THIRD_ROW_Y, TEXT_BOX_WIDTH, CHAR_HEIGHT, BLACK );   // Erase old displayed setting
+    matrix.fillRect( LEFT_MARGIN, FOURTH_ROW_Y, TEXT_BOX_WIDTH, CHAR_HEIGHT, BLACK );  // Erase old displayed setting
+  }
+
+  if ( radio2_active == false )
+  {
+    matrix.fillRect( TEXT_BOX_X, THIRD_ROW_Y, TEXT_BOX_WIDTH, CHAR_HEIGHT, BLACK );   // Erase old displayed setting
+    matrix.fillRect( TEXT_BOX_X, FOURTH_ROW_Y, TEXT_BOX_WIDTH, CHAR_HEIGHT, BLACK );  // Erase old displayed setting
   }
   
 }

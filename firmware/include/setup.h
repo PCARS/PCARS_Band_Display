@@ -23,6 +23,7 @@
 #define MATRIX_WIDTH 64   // Matrix panel width in pixels
 #define MATRIX_HEIGHT 64  // Matrix panel height in pixels
 #define MATRIX_CHAIN 1    // Number of panels chained together
+#define LED_MATRIX_DRIVER HUB75_I2S_CFG::FM6124  // Specific driver based on IC installed on LED matrix
 
 
 #include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>  // LED matrix library
@@ -74,7 +75,7 @@
 #define PINK        0xFC9C  // 64536
 
 
-#define BRIGHTNESS 90  // LED Matrix pixel brightness 0 - 255
+#define BRIGHTNESS 90  // LED Matrix pixel brightness 0 - 255, 90 is a good mid-range level
 
 #define STATION_LABEL_COLOR YELLOW  // Determine color for station labels
 #define STATION_1_COLOR MAGENTA  // Determine color for station # 1

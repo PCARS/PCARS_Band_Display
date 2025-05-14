@@ -1,4 +1,4 @@
-#include "CI-V.h"
+#include "CI-V.h"  // Default header file
 
 
 enum Band {
@@ -19,9 +19,14 @@ enum Band {
 
 uint8_t band_1;   // Store current band in use for radio # 1
 String mode_1;    // Store current mode in use for radio # 1
+bool radio1_active;  // Store ON/OFFstatus of radio # 1
+
 uint8_t band_2;   // Store current band in use for radio # 2
 String mode_2;    // Store current mode in use for radio # 2
+bool radio2_active;  // Store ON/OFF status of radio # 2
+
 uint8_t station;  // Store the station number of that last received packet
+
 
 
 // Function to decode and extract frequency from CI-V message. Return true if received packet is well formed
@@ -200,15 +205,11 @@ bool band_Conflict_Check()
 {
   static uint32_t conflict_active_timer = 0;  // Store how long band conflict has been active. Initialize to 0.
 
-  static bool conflict_confirmed = false;  // Band conflict flag
-
-  bool radio1_active;  // Store ON/OFFstatus of radio # 1
-
-  bool radio2_active;  // Store ON/OFF status of radio # 2
+  static bool conflict_confirmed = false;  // Band conflict flag. Initialize to false.
 
   uint16_t tone_freq;  // Store tone frequency use to drive alarm buzzer
 
-  static bool buzzer_on = false;  // Alarm buzzer on flag
+  static bool buzzer_on = false;  // Alarm buzzer on flag. Initialize to false.
   
   uint32_t time_now = millis();  // Capture current timestamp
 
@@ -228,16 +229,16 @@ bool band_Conflict_Check()
 
 /****************************** Determine if band conflict exists  ****************************************/ 
 
-  if ( radio1_active && radio2_active && band_1 == band_2 )    // For alarm to trigger both radios must be on AND tuned to the same band 
+  if ( radio1_active && radio2_active && band_1 == band_2 )  // For alarm to trigger both radios must be on AND tuned to the same band.
   {
     if ( conflict_active_timer == 0 )  // First time detecting conflict
       conflict_active_timer = time_now;  // Store current millis() timestamp
     
     else if ( time_now - conflict_active_timer >= BAND_CONFLICT_HOLD_TIME )  // If conflict persists for sufficient time
-      conflict_confirmed = true;  // Set band conflict flag
+      conflict_confirmed = true;  // Set band conflict flag.
   }
 
-  else  // If the bands are no longer the same, or one radio goes offline reset timer and conflict flag
+  else  // If the bands are no longer the same, or one radio goes inactive reset timer and conflict flag
   {
     conflict_active_timer = 0;  // Reset conflict timer
 
@@ -247,7 +248,7 @@ bool band_Conflict_Check()
   
 /****************************** Trigger/clear band conflict alarm as needed  ****************************************/  
 
-  if ( conflict_confirmed )  // If conflict is active, play alternating tones for the siren
+  if ( conflict_confirmed )  // If conflict is present, play alternating tones for the siren
   {
       
 #ifdef TWO_TONE_SIREN  
@@ -278,19 +279,52 @@ bool band_Conflict_Check()
      
   }
 
-  else  // Turn alarm buzzer off
+  else if( buzzer_on == true )  // Turn alarm buzzer off
   {
+    ledcWriteTone( BUZZER_CHANNEL, 0 );  // Zero PWM frequency turns off alarm buzzer
 
-    if ( buzzer_on == true )  // Only turn off buzzer if it was previously on. This avoids repeated calls to the PWM function below
-    {
-      ledcWriteTone( BUZZER_CHANNEL, 0 );  // Zero PWM frequency turns off alarm buzzer
-
-      buzzer_on = false;  // Clear buzzer on flag
-    }
-
+    buzzer_on = false;  // Clear buzzer on flag
   }
 
  
   return conflict_confirmed;  // Return status of band conflict check
+
+}
+
+
+bool query_Radio( HardwareSerial &radio, uint8_t station_num )
+{
+
+  const uint8_t num_of_queries = 2;
+  
+  const byte query[num_of_queries][QUERY_CMD_SIZE] = {
+
+    {START_OF_MSG, START_OF_MSG, RADIO_ADDR, CTRLR_ADDR, QUERY_FREQ_CMD, END_OF_MSG},  // Define frequency query command
+    {START_OF_MSG, START_OF_MSG, RADIO_ADDR, CTRLR_ADDR, QUERY_MODE_CMD, END_OF_MSG}   // Define mode query command
+
+  };
+
+  bool query_response = false;  // Store if radio responded to query
+
+  station = station_num;  // Set radio station number
+
+  for ( uint8_t i = 0; i < num_of_queries; i++ )  // Loop through the queries
+  {
+
+    while( radio.available() )  // Flush UART RX buffer
+      radio.read();
+
+    radio.write( query[i], QUERY_CMD_SIZE );  // Send query command
+
+    delay( 50 );  // Sufficient delay for response from radio
+
+    for( uint8_t i = 0; i < QUERY_CMD_SIZE; i++ )  // Loop through and discard command echo response
+      radio.read();
+
+    query_response = processCIV( radio ) && query_response;  // Process CI-V data packet and store query result
+                                                            // Logical AND (&&) is need to confirm that BOTH frequency AND mode queries were successful
+  }
+
+  return query_response;  // Return query response status
 
 }

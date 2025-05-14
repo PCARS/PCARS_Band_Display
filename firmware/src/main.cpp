@@ -9,7 +9,7 @@
    on their operational states.
 
    - Radio 1 and Radio 2 CI-V data is received via separate serial inputs.
-   - The program decodes the band, mode, and TX/RX state from the incoming CI-V packets.
+   - The program decodes the band and mode from the incoming CI-V packets.
    - The LED matrix is updated dynamically to reflect changes for each radio.
 */
 
@@ -36,22 +36,22 @@ void setup()
 void loop()
 {
 
-  if ( Serial1.available() )  // Check for activity from Radio 1
+  if ( Serial1.available() )  // Check for CI_V activity from Radio 1
   {
     station = 1;  // Set radio station number
     Serial.print( F( "Radio 1: " ) );  // Print that radio 1 has activity
     processCIV( Serial1 );  // Process CI-V data packet
   }
 
-  if ( Serial2.available() )  // Check for activity from Radio 2
+  if ( Serial2.available() )  // Check for CI-V activity from Radio 2
   {
     station = 2;  // Set radio station number
     Serial.print( F( "Radio 2: " ) );  // Print that radio 2 has activity
     processCIV( Serial2 );  // Process CI-V data packet
   }
 
-  update_Display();  // Update display if changes occurred
-
   band_Conflict_Check();  // Check for band conflicts and alert if needed
+  
+  update_Display();  // Update display if changes occurred
 
 }
