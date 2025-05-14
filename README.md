@@ -72,6 +72,6 @@ The Band Display system consists of:
 ## Key Features
 - Shared 64x64 LED matrix with real-time band/mode display for both stations  
 - CI-V-based band/mode input over UART for accurate radio status monitoring  
-- Conflict alert system with 3-second delay buzzer  
+- Conflict alert system buzzer with 3-second delay 
 - ESP32-driven logic with efficient HUB75 display handling  
 - Clean power distribution with dedicated matrix power input
