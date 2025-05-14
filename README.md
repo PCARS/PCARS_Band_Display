@@ -76,7 +76,7 @@ The Band Display system consists of:
 - Clean power distribution with dedicated matrix power input
 
 
-- ## Software
+## Software
 
 The Band Display firmware is developed using the **Arduino framework** within **PlatformIO** on **Microsoft Visual Studio Code**. It leverages the multitasking capabilities of the ESP32 and includes purpose-built logic for real-time display updates, radio state monitoring, and conflict alerts.
 
