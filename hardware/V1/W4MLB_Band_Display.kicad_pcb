@@ -8706,11 +8706,11 @@
 	(footprint "Footprints:MODULE_ESP32_DEVKIT_V1"
 		(layer "F.Cu")
 		(uuid "c2ee5f8d-77f7-4e93-88a0-89c87d48b933")
-		(at -29.05 195.205)
+		(at 31.25 167.25)
 		(property "Reference" "U1"
 			(at 0.25 -0.165 0)
 			(layer "F.SilkS")
-			(uuid "9e642275-2474-423a-ac63-0b54bab915d5")
+			(uuid "9cb2e9b0-dc1d-4113-a946-f91adc29b909")
 			(effects
 				(font
 					(size 1 1)
@@ -8721,7 +8721,7 @@
 		(property "Value" "ESP32-DEVKIT-V1"
 			(at -0.56 27.36 0)
 			(layer "F.Fab")
-			(uuid "e12b2233-6147-4e91-b16f-8821f9a8c79f")
+			(uuid "0270e8cd-bc1f-4759-ae96-735a0a7cd049")
 			(effects
 				(font
 					(size 1 1)
@@ -8733,7 +8733,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4d218485-ff75-4acb-9225-321ab19d95f0")
+			(uuid "ba206771-8a6a-4128-a1f3-8208f0e740c2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8745,7 +8745,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "33ab4cb4-3379-4bc7-a0e1-e91cb369b536")
+			(uuid "528e2ae8-b0c0-40ee-9a61-839a0e417b19")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9654,7 +9654,7 @@
 			)
 			(polygon
 				(pts
-					(xy -37.96 214.19) (xy -20.27 214.19) (xy -20.27 220.68) (xy -37.96 220.68)
+					(xy 22.34 186.235) (xy 40.03 186.235) (xy 40.03 192.725) (xy 22.34 192.725)
 				)
 			)
 		)
@@ -9686,7 +9686,7 @@
 			)
 			(polygon
 				(pts
-					(xy -37.96 214.19) (xy -20.27 214.19) (xy -20.27 220.68) (xy -37.96 220.68)
+					(xy 22.34 186.235) (xy 40.03 186.235) (xy 40.03 192.725) (xy 22.34 192.725)
 				)
 			)
 		)
@@ -9718,7 +9718,7 @@
 			)
 			(polygon
 				(pts
-					(xy -37.96 214.19) (xy -20.27 214.19) (xy -20.27 220.68) (xy -37.96 220.68)
+					(xy 22.34 186.235) (xy 40.03 186.235) (xy 40.03 192.725) (xy 22.34 192.725)
 				)
 			)
 		)
