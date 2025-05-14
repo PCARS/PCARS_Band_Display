@@ -16,6 +16,10 @@ The Library folder contains sub-folders for the individual part's Symbols, Footp
 
 The parts library files were download primarily from the SnapEDA website.
 
+### Bill of Materials:
+
+[Bill of Materials](https://htmlpreview.github.io/?https://github.com/PCARS/PCARS_Band_Display/blob/master/hardware/V1/bom/ibom.html)
+
 ### Images:
 
 ![Top View](Images/W4MLB_Band_Display_Top.jpg)
@@ -23,3 +27,5 @@ The parts library files were download primarily from the SnapEDA website.
 ![Front Side View](Images/W4MLB_Band_Display_Front_Side.jpg)
 ![Populated Board](Images/W4MLB_Band_Display_Populated.jpg)
 ![Bottom View](Images/W4MLB_Band_Display_Bottom.jpg)
+
+
