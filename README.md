@@ -67,7 +67,6 @@ The Band Display system consists of:
   - Bottom layer contains a solid ground pour with signal traces routed within
   - Compact and purpose-built layout for minimal noise and easy integration with the LED matrix
 
----
 
 ## Key Features
 - Shared 64x64 LED matrix with real-time band/mode display for both stations  
@@ -107,3 +106,5 @@ The Band Display firmware is developed using the **Arduino framework** within **
   - CI-V communication  
   - Display updates  
   - Conflict alert logic
+ 
+  ---
