@@ -103,11 +103,10 @@ extern MatrixPanel_I2S_DMA matrix;  // Matrix instantiation
 
 
 // Function prototypes
+void setup_PWM();
 void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
-bool query_Radio(HardwareSerial &radio, uint8_t station_num);
-void setup_PWM();
 
 
 #endif
