@@ -116,8 +116,4 @@ The Band Display firmware is developed using the **Arduino framework** within **
   - Conflict alert logic  
   This structure allows each subsystem to operate independently without interfering with others, improving responsiveness and reliability.
 
-### Project Structure
-
-
- 
   ---
