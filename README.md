@@ -75,3 +75,35 @@ The Band Display system consists of:
 - Conflict alert system buzzer with 3-second delay 
 - ESP32-driven logic with efficient HUB75 display handling  
 - Clean power distribution with dedicated matrix power input
+
+
+- ## Software
+
+The Band Display firmware is developed using the **Arduino framework** within **PlatformIO** on **Microsoft Visual Studio Code**. It leverages the multitasking capabilities of the ESP32 and includes purpose-built logic for real-time display updates, radio state monitoring, and conflict alerts.
+
+### Key Components
+
+- **PlatformIO Environment**  
+  Ensures reproducible builds and dependency management.  
+  Configuration is defined in `platformio.ini`.
+
+- **ESP32-HUB75-MatrixPanel-I2S-DMA Library**  
+  Handles high-speed updates to the 64x64 HUB75 RGB LED matrix.  
+  Provides smooth, flicker-free rendering with DMA support.  
+  GitHub: [ESP32-HUB75-MatrixPanel-I2S-DMA](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-I2S-DMA)
+
+- **CI-V Decoder Logic**  
+  Parses incoming CI-V data from both radios over two UART ports.  
+  Extracts operating band and mode from Icom/Yaesu CI-V messages.  
+  Ensures independent and reliable monitoring of Station 1 and Station 2.
+
+- **Display Management**  
+  Color-coded band/mode segments for each station.  
+  Adaptive text sizing and positioning to fit the matrix resolution.  
+  Built-in conflict detection logic triggers the buzzer when both stations are on the same band.
+
+- **Task Scheduling**  
+  Uses ESP32 FreeRTOS tasks for concurrent handling of:
+  - CI-V communication  
+  - Display updates  
+  - Conflict alert logic
