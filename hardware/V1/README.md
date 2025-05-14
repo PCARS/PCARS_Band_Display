@@ -18,8 +18,8 @@ The parts library files were download primarily from the SnapEDA website.
 
 ### Images:
 
-![Top View](images/W4MLB_Band_Display_Top.jpg)
-![Right Side View](images/W4MLB_Band_Display_Right_Side.jpg)
-![Front Side View](images/W4MLB_Band_Display_Front_Side.jpg)
-![Populated Board](images/W4MLB_Band_Display_Populated.jpg)
-![Bottom View](images/W4MLB_Band_Display_Bottom.jpg)
+![Top View](Images/W4MLB_Band_Display_Top.jpg)
+![Right Side View](Images/W4MLB_Band_Display_Right_Side.jpg)
+![Front Side View](Images/W4MLB_Band_Display_Front_Side.jpg)
+![Populated Board](Images/W4MLB_Band_Display_Populated.jpg)
+![Bottom View](Images/W4MLB_Band_Display_Bottom.jpg)
