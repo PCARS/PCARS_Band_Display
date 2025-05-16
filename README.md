@@ -67,7 +67,6 @@ The Band Display system consists of:
   - Bottom layer contains a solid ground pour with signal traces routed within
   - Compact and purpose-built layout for minimal noise and easy integration with the LED matrix
 
----
 
 ## Key Features
 - Shared 64x64 LED matrix with real-time band/mode display for both stations  
@@ -75,3 +74,46 @@ The Band Display system consists of:
 - Conflict alert system buzzer with 3-second delay 
 - ESP32-driven logic with efficient HUB75 display handling  
 - Clean power distribution with dedicated matrix power input
+
+
+
+## Software
+
+The Band Display firmware is developed using the **Arduino framework** within **PlatformIO** on **Microsoft Visual Studio Code**. It leverages the multitasking capabilities of the ESP32 and includes purpose-built logic for real-time display updates, radio state monitoring, and conflict alerts.
+
+### Key Components
+
+- **PlatformIO Environment**  
+  Ensures reproducible builds and dependency management.  
+  Configuration is defined in `platformio.ini`.
+
+- **ESP32-HUB75-MatrixPanel-I2S-DMA Library**  
+  Handles high-speed updates to the 64x64 HUB75 RGB LED matrix.  
+  This library utilizes the **ESP32's built-in DMA hardware** to stream pixel data directly to the matrix via the I2S peripheral.  
+  Because the DMA engine manages the actual data transfer, the **main processor cores remain free** for other tasks such as serial parsing, logic processing, and display updates.  
+  This results in **flicker-free, high-performance rendering** with minimal CPU overhead.  
+  GitHub: [ESP32-HUB75-MatrixPanel-I2S-DMA](https://github.com/mrfaptastic/ESP32-HUB75-MatrixPanel-I2S-DMA)
+
+- **CI-V Decoder Logic**  
+  Parses incoming CI-V data from both radios over two **dedicated hardware UARTs** on the ESP32.  
+  Using hardware UART peripherals ensures that incoming serial data is buffered and handled by the UART hardware itself—**without blocking or interrupting the main program flow**.  
+  This allows for **reliable and real-time decoding** of Icom/Yaesu CI-V messages, even when both radios are transmitting data simultaneously.
+
+- **Display Management**  
+  Color-coded band/mode segments for each station.  
+  Adaptive text sizing and positioning to fit the matrix resolution.  
+  Designed to update dynamically based on the latest decoded band and mode data for each station.
+
+- **Conflict Alert System**  
+  When both stations are detected operating on the same band, a **passive buzzer** is used to annunciate the conflict.  
+  The buzzer is driven using one of the **ESP32’s built-in PWM channels**, which allows tone generation **without burdening the processor with manual timing or waveform control**.  
+  This hardware-driven approach ensures accurate and non-blocking sound output, keeping the main application responsive.
+
+- **Task Scheduling**  
+  Uses ESP32 FreeRTOS tasks for concurrent handling of:
+  - CI-V communication  
+  - Display updates  
+  - Conflict alert logic  
+  This structure allows each subsystem to operate independently without interfering with others, improving responsiveness and reliability.
+
+  ---
