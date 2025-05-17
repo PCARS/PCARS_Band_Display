@@ -46,6 +46,9 @@
 
 #endif
 
+#define QUIET_BUS_MIN_TIME 100  // Time [ms] CI-V bus must be inactive before sending query transmissions from ESP32
+
+
 extern uint8_t band_1;      // Store current band in use for radio # 1
 extern String mode_1;       // Store current mode in use for radio # 1
 extern bool radio1_active;  // Store ON/OFFstatus of radio # 1
@@ -58,11 +61,11 @@ extern uint8_t station;     // Store the station number of that last received pa
 
 
 // Function prototypes
-bool processCIV( HardwareSerial &radio);  // Process CI-V packets. Return true of good packet received, false otherwise
+bool process_CIV( HardwareSerial &radio);  // Process CI-V packets. Return true of good packet received, false otherwise
 long decodeFrequency( byte *freqBytes );  // Decode the radio operating frequency from the received CI-V packet
 uint8_t determineBand( long frequency );  // Determine the US Amateur Radio HF Band based on operating frequency
 String decodeMode( byte *modeBytes );     // Decode the radio operating mode from the received CI-V packet
 bool band_Conflict_Check(); // Check if both radio's are active and trigger alarm if band conflict is present for a set amount of time
-bool query_Radio(HardwareSerial &radio, uint8_t station_num);  // Query radio for operating frequency and mode. Return true if query successful
+bool query_Radio(HardwareSerial &radio );  // Query radio for operating frequency and mode. Return true if query successful
 
 #endif

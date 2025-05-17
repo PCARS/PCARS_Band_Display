@@ -19,7 +19,9 @@ void setup_Serial()
 {
 
   Serial.begin( SERIAL_BAUD );  // Main Serial for debugging
+
   Serial1.begin( CI_V_BAUD, SERIAL_8N1, RX_1, TX_1);     // RX, TX (Safe GPIOs)
+  
   Serial2.begin( CI_V_BAUD, SERIAL_8N1, RX_2, TX_2  );  //  RX, TX (Safe GPIOs)
 
 }
@@ -57,8 +59,11 @@ void setup_LED_Display()
   // Initialize the matrix
   if ( matrix.begin( mx_config ) == false )  // Test for LED matrix initialization
   {
+
     Serial.println( F( "Matrix initialization failed!" ) );  // Print error message
+
     ESP.restart();  // Restart ESP32 if LED matrix will not initialize
+
   }
 
 
@@ -80,8 +85,9 @@ void setup_LED_Display()
   matrix.print( station_Num_2 );  // Display station # 2 label
 
 
-  if ( query_Radio( Serial1, 1 ) )  // Get current band and mode from radio. Only update display if radio is active
+  if ( query_Radio( Serial1 ) )  // Get current band and mode from radio. Only update display if radio is active
   {
+
     matrix.setTextColor( STATION_1_COLOR );  // Set text color for Station 1
     
     matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );  // Left justified
@@ -99,10 +105,12 @@ void setup_LED_Display()
     // matrix.setTextColor(GREEN);  // Set text color
     // matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
     // matrix.print( F( "RX" ) );  // Display RX/TX status
+
   }
 
-  if( query_Radio( Serial2, 2 ) )  // Get current band and mode from radio. Only update display if radio is active
+  if( query_Radio( Serial2 ) )  // Get current band and mode from radio. Only update display if radio is active
   {
+
     matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
     String band_2_str = String( band_2 ) + 'M';
@@ -122,6 +130,7 @@ void setup_LED_Display()
     // matrix.setTextColor(RED);  // Set text color
     // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
     // matrix.print( F( "TX" ) );  // Display RX/TX status
+
   }
 
 }
@@ -130,6 +139,7 @@ void setup_LED_Display()
 // Function to calculate the pixel width of a text string
 uint8_t calculateTextWidth( String text )
 {
+
   uint8_t length = text.length();  // Get the length of the text
   
   return ( CHAR_WIDTH * length ) + length - 1;   // Calculate total width of the string in pixels

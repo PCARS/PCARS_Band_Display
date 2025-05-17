@@ -40,14 +40,14 @@ void loop()
   {
     station = 1;  // Set radio station number
     Serial.print( F( "Radio 1: " ) );  // Print that radio 1 has activity
-    processCIV( Serial1 );  // Process CI-V data packet
+    process_CIV( Serial1 );  // Process CI-V data packet
   }
 
   if ( Serial2.available() )  // Check for CI-V activity from Radio 2
   {
     station = 2;  // Set radio station number
     Serial.print( F( "Radio 2: " ) );  // Print that radio 2 has activity
-    processCIV( Serial2 );  // Process CI-V data packet
+    process_CIV( Serial2 );  // Process CI-V data packet
   }
 
   band_Conflict_Check();  // Check for band conflicts and alert if needed
