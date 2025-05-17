@@ -32,7 +32,7 @@
 
 #define BAND_CONFLICT_HOLD_TIME 3000  // Time required before alerting band conflict [ms]
 
-#define TWO_TONE_SIREN  // Comment out to disable two-tone WEE-OOO and enable single tone alert
+//#define TWO_TONE_SIREN  // Comment out to disable two-tone WEE-OOO and enable single tone alert
 
 #ifdef TWO_TONE_SIREN
 
@@ -41,7 +41,7 @@
 #define TONE_2_FREQ 500   // Frequency of the second tone (OOO)
 
 #else
- 
+
 #define TONE_1_FREQ 2400  // Frequency of the single tone, near resonant frequency of 2400 Hz 
 
 #endif
@@ -66,6 +66,6 @@ long decodeFrequency( byte *freqBytes );  // Decode the radio operating frequenc
 uint8_t determineBand( long frequency );  // Determine the US Amateur Radio HF Band based on operating frequency
 String decodeMode( byte *modeBytes );     // Decode the radio operating mode from the received CI-V packet
 bool band_Conflict_Check(); // Check if both radio's are active and trigger alarm if band conflict is present for a set amount of time
-bool query_Radio(HardwareSerial &radio );  // Query radio for operating frequency and mode. Return true if query successful
+bool query_Radio(HardwareSerial &radio, uint8_t station_num );  // Query radio for operating frequency and mode. Return true if query successful
 
 #endif

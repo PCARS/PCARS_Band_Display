@@ -3,7 +3,10 @@
 
 
 MatrixPanel_I2S_DMA matrix;  // Instantiate LED matrix object
-
+struct tm timeinfo;
+const char* ssid = "TMOBILE-6A99";
+const char* password = "2da6e267ca";
+const char* ntpServer = "pool.ntp.org";
 
 void setup_PWM()
 {
@@ -77,6 +80,7 @@ void setup_LED_Display()
   matrix.setCursor( ( MATRIX_WIDTH - calculateTextWidth( station_Label ) ) / 2, FIRST_ROW_Y);  // Center top row
   matrix.print( station_Label );  // Display Station label
       
+  matrix.setTextColor( STATION_LABEL_COLOR );  // Set text color for Station labels
 
   matrix.setCursor( LEFT_MARGIN, SECOND_ROW_Y);  // Left justified
   matrix.print( station_Num_1 );  // Display station # 1 label
@@ -84,17 +88,22 @@ void setup_LED_Display()
   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth( station_Num_2 ), SECOND_ROW_Y);  // Right justified
   matrix.print( station_Num_2 );  // Display station # 2 label
 
+  matrix.drawLine( LEFT_MARGIN, THIRD_ROW_Y - 2, MATRIX_WIDTH - 2, THIRD_ROW_Y - 2, DARKGREY );
 
-  if ( query_Radio( Serial1 ) )  // Get current band and mode from radio. Only update display if radio is active
-  {
+  // radio1_active =  query_Radio( Serial1, 1 );
 
-    matrix.setTextColor( STATION_1_COLOR );  // Set text color for Station 1
+  // if ( radio1_active )  // Get current band and mode from radio. Only update display if radio is active
+  // {
+
+  //   matrix.setTextColor( STATION_1_COLOR );  // Set text color for Station 1
+
+  //   String band_1_str = String( band_1 ) + "m";
     
-    matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );  // Left justified
-    matrix.print( band_1 );  // Display band
+  //   matrix.setCursor( LEFT_MARGIN, THIRD_ROW_Y );  // Left justified
+  //   matrix.print( band_1_str );  // Display band
 
-    matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );  // Left justified
-    matrix.print( mode_1 );  // Display mode
+  //   matrix.setCursor( LEFT_MARGIN, FOURTH_ROW_Y );  // Left justified
+  //   matrix.print( mode_1 );  // Display mode
 
     // matrix.setCursor( LEFT_MARGIN, FIFTH_ROW_Y );  // Left justified
     // matrix.print( F( "TA33" ) );  // Display antenna in use
@@ -106,20 +115,22 @@ void setup_LED_Display()
     // matrix.setCursor( LEFT_MARGIN, SEVENTH_ROW_Y );  // Left justified
     // matrix.print( F( "RX" ) );  // Display RX/TX status
 
-  }
+  // }
 
-  if( query_Radio( Serial2 ) )  // Get current band and mode from radio. Only update display if radio is active
-  {
+  // radio2_active =  query_Radio( Serial2, 2 );
 
-    matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
+  // if( radio2_active )  // Get current band and mode from radio. Only update display if radio is active
+  // {
 
-    String band_2_str = String( band_2 ) + 'M';
+  //   matrix.setTextColor(STATION_2_COLOR);  // Set text color for Station 2
 
-    matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(band_2_str) , THIRD_ROW_Y );  // Right justified
-    matrix.print( band_2_str );  // Display band
+  //   String band_2_str = String( band_2 ) + "m";
+
+  //   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(band_2_str) , THIRD_ROW_Y );  // Right justified
+  //   matrix.print( band_2_str );  // Display band
     
-    matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
-    matrix.print( mode_2 );  // Display mode
+  //   matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth(mode_2), FOURTH_ROW_Y );  // Right justified
+  //   matrix.print( mode_2 );  // Display mode
 
     // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("PRO"), FIFTH_ROW_Y );  // Right justified
     // matrix.print( "PRO" );  // Display antenna in use
@@ -131,7 +142,7 @@ void setup_LED_Display()
     // matrix.setCursor( MATRIX_WIDTH - RIGHT_MARGIN - calculateTextWidth("TX"), SEVENTH_ROW_Y );  // Right justified
     // matrix.print( F( "TX" ) );  // Display RX/TX status
 
-  }
+  // }
 
 }
 
@@ -143,5 +154,58 @@ uint8_t calculateTextWidth( String text )
   uint8_t length = text.length();  // Get the length of the text
   
   return ( CHAR_WIDTH * length ) + length - 1;   // Calculate total width of the string in pixels
+
+}
+
+
+void  setup_WIFI()
+{
+
+  Serial.printf( "Connecting to %s", ssid );
+  WiFi.begin( ssid, password );
+
+  while ( WiFi.status() != WL_CONNECTED )
+  {
+    delay( 500 );
+    Serial.print( "." );
+  }
+
+  printWifiStatus();
+
+}
+
+
+/*=============================================================== */
+/* This prints out Wi-Fi settings                                 */
+/*=============================================================== */
+void printWifiStatus() {
+
+  /* print the SSID of the network you're attached to */
+  Serial.println("\r\n----WiFi connected----");
+  Serial.print("SSID: ");
+  Serial.println(WiFi.SSID());
+
+  /* print your assigned IP address */
+  Serial.print("IP Address: ");
+  Serial.println(WiFi.localIP());
+
+  /* print the WiFi's received signal strength */
+  Serial.print("RSSI:");
+  Serial.print(WiFi.RSSI());
+  Serial.println(" dBm\r\n");
+}
+
+void setup_NTP()
+{
+  uint8_t timeout_NTP = 0;
+  
+  configTzTime( "EST5EDT,M3.2.0/2,M11.1.0/2", ntpServer );
+
+  while( getLocalTime( &timeinfo ) == false && timeout_NTP < NTP_TIMEOUT )
+  {
+    Serial.println( F( "Waiting for time update...") );
+    delay( 1000 );
+    timeout_NTP++;
+  }
 
 }

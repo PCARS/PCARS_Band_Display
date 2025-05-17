@@ -3,7 +3,10 @@
 
 #include <Arduino.h>       // Required libarary for Arduino programming
 #include <Adafruit_GFX.h>  // LED matrix library dependancy
+#include <WiFi.h>
+#include <time.h>
 
+#define LOOP_DELAY 1000 // Loop delay [ms] to avoid excessive CI-V traffic
 
 #define BUZZER_PIN 2  // Assign pin to drive passive buzzer with PWM
 #define BUZZER_FREQUENCY 2400  // 2.5kHz typically close to buzzer resonant frequency
@@ -101,12 +104,22 @@
 
 extern MatrixPanel_I2S_DMA matrix;  // Matrix instantiation
 
+extern const char* ssid;
+extern const char* password;
+
+#define NTP_TIMEOUT 10 // Time in [s] before NTP time acquisition times out
+
+extern const char* ntpServer;  // Path to NTP server
+extern struct tm timeinfo;  // Structure for holding time information
 
 // Function prototypes
 void setup_PWM();
 void setup_Serial();
 void setup_LED_Display();
 uint8_t calculateTextWidth(String text);
+void  setup_WIFI();
+void printWifiStatus();
+void setup_NTP();
 
 
 #endif

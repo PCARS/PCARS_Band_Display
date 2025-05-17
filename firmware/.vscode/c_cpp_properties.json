@@ -8,11 +8,12 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/include",
-                "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/src",
-                "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/ESP32 HUB75 LED MATRIX PANEL DMA Display/src",
-                "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit GFX Library",
-                "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit BusIO",
+                "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/include",
+                "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/src",
+                "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/ESP32 HUB75 LED MATRIX PANEL DMA Display/src",
+                "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit GFX Library",
+                "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit BusIO",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
@@ -239,7 +240,6 @@
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                 ""
@@ -247,11 +247,12 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/include",
-                    "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/src",
-                    "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/ESP32 HUB75 LED MATRIX PANEL DMA Display/src",
-                    "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit GFX Library",
-                    "c:/Users/sapy4/Documents/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit BusIO",
+                    "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/include",
+                    "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/src",
+                    "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                    "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/ESP32 HUB75 LED MATRIX PANEL DMA Display/src",
+                    "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit GFX Library",
+                    "c:/Users/sapy4/Documents/PlatformIO/Projects/PCARS_Band_Display/firmware/.pio/libdeps/esp32doit-devkit-v1/Adafruit BusIO",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
@@ -478,7 +479,6 @@
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                    "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "C:/Users/sapy4/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                     ""
